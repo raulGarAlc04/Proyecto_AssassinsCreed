@@ -15,6 +15,5 @@ class ListarPersonajes : ActivityWithMenus() {
         setContentView(binding.root)
 
         binding.recycler.layoutManager = LinearLayoutManager(this)
-        binding.recycler.adapter = PersonajeAdapter(PersonajeProvider.personajeList)
     }
 }
