@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnnadirPersonaje">
+
+    <ImageView
+        android:id="@+id/espada_damocles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/espada_damocles"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titulo_annadir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="AÑADIR PERSONAJE"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/nombrePersonaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Nombre del personaje"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="102dp"
+        app:layout_constraintTop_toBottomOf="@id/titulo_annadir"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/anioFallecimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Año de fallecimiento"
+        app:layout_constraintTop_toBottomOf="@id/nombrePersonaje"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/lugarFallecimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Lugar de fallecimiento"
+        app:layout_constraintTop_toBottomOf="@id/anioFallecimiento"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/afiliacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Afiliación"
+        app:layout_constraintTop_toBottomOf="@id/lugarFallecimiento"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <RadioGroup
+        android:id="@+id/grupo_radio"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/afiliacion">
+
+        <RadioButton
+            android:id="@+id/radioVillano"
+            android:layout_width="123dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/cinzel_regular"
+            android:text="Villano"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radioAmigo"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Bueno"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="100dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/cinzel_regular"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bAnnadir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="AÑADIR PERSONAJE"
+        app:layout_constraintTop_toBottomOf="@id/grupo_radio"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"
+        android:textStyle="bold"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/inicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/annadir_personaje"
+        android:title="Añadir Personaje" />
+    <item
+        android:id="@+id/eliminar_personaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Eliminar Personaje" />
+    <item
+        android:id="@+id/actualizar_personaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Actualizar Tipo Personaje" />
+    <item
+        android:id="@+id/mostrar_personajes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Mostrar Personajes" />
+</menu>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "572548321375",
+    "project_id": "loginproyecto-a72f5",
+    "storage_bucket": "loginproyecto-a72f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572548321375:android:3cbd2cf6a4cb8b26850bea",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_assassinscreed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_thOD5X4OuJPaIiBr5ZSsGIbkTQLjSqo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
