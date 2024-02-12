@@ -9,4 +9,10 @@
     </style>
 
     <style name="Theme.Proyecto_AssassinsCreed" parent="Base.Theme.Proyecto_AssassinsCreed" />
+
+    <style name="SplashTheme" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Proyecto_AssassinsCreed</item>
+    </style>
 </resources>

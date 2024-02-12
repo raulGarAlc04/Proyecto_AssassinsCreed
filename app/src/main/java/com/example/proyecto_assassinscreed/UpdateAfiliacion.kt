@@ -23,9 +23,15 @@ class UpdateAfiliacion : ActivityWithMenus() {
 
 
         binding.bActualizar.setOnClickListener {
-            val nuevaAfiliacion = binding.nuevaAfiliacion.text.toString()
 
-            updatePersonaje(nuevaAfiliacion)
+
+            if (binding.nombrePersonajeActualizar.text.isNotEmpty() && binding.nuevaAfiliacion.text.isNotEmpty()) {
+                val nuevaAfiliacion = binding.nuevaAfiliacion.text.toString()
+                updatePersonaje(nuevaAfiliacion)
+            } else {
+                Toast.makeText(this, "El campo no puede estar vacio", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }
@@ -37,10 +43,22 @@ class UpdateAfiliacion : ActivityWithMenus() {
             if (personajes.isNotEmpty()) {
                 val personaje = personajes[0]
                 personaje.afiliacion = nuevaAfiliacion
-
                 MiPersonajesApp.database.personajeDao().updatePersonaje(personaje)
+
+                runOnUiThread {
+                    clearTextos()
+                    Toast.makeText(this@UpdateAfiliacion, "Personaje actualizado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                runOnUiThread {
+                    Toast.makeText(this@UpdateAfiliacion, "Este personaje no existe en la base de datos", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
+    }
+    fun clearTextos() {
+        binding.nombrePersonajeActualizar.setText("")
+        binding.nuevaAfiliacion.setText("")
     }
 }

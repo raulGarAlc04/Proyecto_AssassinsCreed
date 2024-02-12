@@ -2,6 +2,7 @@ package com.example.proyecto_assassinscreed
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.databinding.ActivityEliminarBinding
 import kotlinx.coroutines.CoroutineScope
@@ -17,18 +18,39 @@ class EliminarActivity : ActivityWithMenus() {
         setContentView(binding.root)
 
         binding.bBorrar.setOnClickListener {
-            val nombrePersonaje = binding.nombrePersonajeEliminar.text.toString()
+            if (binding.nombrePersonajeEliminar.text.isNotEmpty()) {
+                val nombrePersonaje = binding.nombrePersonajeEliminar.text.toString()
+                borrarPersonaje(nombrePersonaje)
+            } else {
+                Toast.makeText(this, "El campo no puede estar vacio", Toast.LENGTH_SHORT).show()
+            }
 
-            borrarPersonaje(nombrePersonaje)
+
         }
     }
 
     fun borrarPersonaje(nombre: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val personaje_borrar = MiPersonajesApp.database.personajeDao().personajePorNombre(nombre)
-            val personajeBorrado = personaje_borrar[0]
+            if (personaje_borrar.isNotEmpty()) {
+                val personajeBorrado = personaje_borrar[0]
+                MiPersonajesApp.database.personajeDao().deletePersonaje(personajeBorrado)
 
-            MiPersonajesApp.database.personajeDao().deletePersonaje(personajeBorrado)
+                runOnUiThread {
+                    clearTextos()
+                    Toast.makeText(this@EliminarActivity, "Personaje eliminado correctamente", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                runOnUiThread {
+                    Toast.makeText(this@EliminarActivity, "Personaje no encontrado", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
         }
+    }
+
+    fun clearTextos() {
+        binding.nombrePersonajeEliminar.setText("")
     }
 }

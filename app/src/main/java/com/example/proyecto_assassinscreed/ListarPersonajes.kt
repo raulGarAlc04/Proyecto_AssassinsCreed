@@ -3,6 +3,7 @@ package com.example.proyecto_assassinscreed
 import android.app.Person
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
@@ -26,6 +27,12 @@ class ListarPersonajes : ActivityWithMenus() {
 
         personajes = ArrayList()
         getPersonajes()
+
+        binding.buscador.addTextChangedListener {buscador ->
+            val buscadorPersonajes = MiPersonajesApp.database.personajeDao().getAllPersonajes().filter {personaje ->
+                personaje.nombrePersonaje.contains(buscador.toString()) }
+            adapter.actualizarPersonajes(buscadorPersonajes as MutableList<Personajes>)
+        }
     }
 
     fun getPersonajes() {
