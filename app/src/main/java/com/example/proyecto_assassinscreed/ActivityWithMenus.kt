@@ -52,6 +52,13 @@ open class ActivityWithMenus: AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+            R.id.mostrar_personajes -> {
+                val intent = Intent(this, ListarPersonajes::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                actividadActual = 4
+                startActivity(intent)
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }

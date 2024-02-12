@@ -2,6 +2,7 @@ package com.example.proyecto_assassinscreed
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.DBPersonajes
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.database.Personajes
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class AnnadirPersonaje : ActivityWithMenus() {
     lateinit var binding : ActivityAnnadirPersonajeBinding
+    lateinit var adapter: PersonajeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,10 +32,6 @@ class AnnadirPersonaje : ActivityWithMenus() {
                         villano = binding.radioVillano.isChecked
                     )
                 )
-
-                runOnUiThread {
-                    clearTextos()
-                }
             }
         }
     }
@@ -46,4 +44,5 @@ class AnnadirPersonaje : ActivityWithMenus() {
         binding.radioVillano.isChecked = false
         binding.radioAmigo.isChecked = false
     }
+
 }

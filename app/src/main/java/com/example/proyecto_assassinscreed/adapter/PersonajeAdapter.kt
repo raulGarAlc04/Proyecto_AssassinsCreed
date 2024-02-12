@@ -3,11 +3,10 @@ package com.example.proyecto_assassinscreed.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto_assassinscreed.Personaje
-import com.example.proyecto_assassinscreed.PersonajeProvider.Companion.personajeList
 import com.example.proyecto_assassinscreed.R
+import com.example.proyecto_assassinscreed.database.Personajes
 
-class PersonajeAdapter(private val personajeList: List<Personaje>): RecyclerView.Adapter<PersonajeViewHolder>() {
+class PersonajeAdapter(val personajeList: MutableList<Personajes>): RecyclerView.Adapter<PersonajeViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonajeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return PersonajeViewHolder(layoutInflater.inflate(R.layout.item_personaje,parent,false))
@@ -19,6 +18,7 @@ class PersonajeAdapter(private val personajeList: List<Personaje>): RecyclerView
 
     override fun onBindViewHolder(holder: PersonajeViewHolder, position: Int) {
         val item = personajeList[position]
-        holder.render(item)
+        holder.bind(item)
     }
+
 }
