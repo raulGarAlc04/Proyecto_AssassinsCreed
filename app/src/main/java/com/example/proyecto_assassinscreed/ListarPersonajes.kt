@@ -28,11 +28,24 @@ class ListarPersonajes : ActivityWithMenus() {
         personajes = ArrayList()
         getPersonajes()
 
-        binding.buscador.addTextChangedListener {buscador ->
+        /*binding.buscador.addTextChangedListener {buscador ->
             val buscadorPersonajes = MiPersonajesApp.database.personajeDao().getAllPersonajes().filter {personaje ->
-                personaje.nombrePersonaje.contains(buscador.toString()) }
+                personaje.nombrePersonaje.contains(buscador.toString(), ignoreCase = true) }
             adapter.actualizarPersonajes(buscadorPersonajes as MutableList<Personajes>)
+        }*/
+
+        binding.buscador.addTextChangedListener { buscador ->
+            val textoBuscador = buscador.toString()
+            CoroutineScope(Dispatchers.IO).launch {
+                val buscadorPersonajes = MiPersonajesApp.database.personajeDao().getAllPersonajes().filter { personaje ->
+                    personaje.nombrePersonaje.contains(textoBuscador, ignoreCase = true)
+                }
+                runOnUiThread {
+                    adapter.actualizarPersonajes(buscadorPersonajes as MutableList<Personajes>)
+                }
+            }
         }
+
     }
 
     fun getPersonajes() {

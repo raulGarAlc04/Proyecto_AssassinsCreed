@@ -3,6 +3,7 @@ package com.example.proyecto_assassinscreed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.databinding.ActivityEliminarBinding
 import kotlinx.coroutines.CoroutineScope
@@ -11,11 +12,14 @@ import kotlinx.coroutines.launch
 
 class EliminarActivity : ActivityWithMenus() {
     lateinit var binding: ActivityEliminarBinding
+    lateinit var adapter: PersonajeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_eliminar)
         binding = ActivityEliminarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        adapter = PersonajeAdapter(mutableListOf())
 
         binding.bBorrar.setOnClickListener {
             if (binding.nombrePersonajeEliminar.text.isNotEmpty()) {
@@ -39,6 +43,7 @@ class EliminarActivity : ActivityWithMenus() {
                 runOnUiThread {
                     clearTextos()
                     Toast.makeText(this@EliminarActivity, "Personaje eliminado correctamente", Toast.LENGTH_SHORT).show()
+                    actualizarRecyclerView()
                 }
             } else {
                 runOnUiThread {
@@ -52,5 +57,14 @@ class EliminarActivity : ActivityWithMenus() {
 
     fun clearTextos() {
         binding.nombrePersonajeEliminar.setText("")
+    }
+
+    fun actualizarRecyclerView() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
+            runOnUiThread {
+                adapter.actualizarPersonajes(personajes)
+            }
+        }
     }
 }

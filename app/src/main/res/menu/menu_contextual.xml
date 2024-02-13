@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/copiarImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Copiar Imagen" />
+    <item
+        android:id="@+id/ocultarImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Ocultar Foto Perfil" />
+    <item
+        android:id="@+id/mostrarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Mostrar Foto Perfil" />
+</menu>

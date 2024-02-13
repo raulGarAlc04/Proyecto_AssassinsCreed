@@ -3,6 +3,7 @@ package com.example.proyecto_assassinscreed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.database.Personajes
 import com.example.proyecto_assassinscreed.databinding.ActivityUpdateAfiliacionBinding
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class UpdateAfiliacion : ActivityWithMenus() {
     lateinit var binding: ActivityUpdateAfiliacionBinding
+    lateinit var adapter: PersonajeAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +22,7 @@ class UpdateAfiliacion : ActivityWithMenus() {
         binding = ActivityUpdateAfiliacionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        adapter = PersonajeAdapter(mutableListOf())
 
         binding.bActualizar.setOnClickListener {
 
@@ -48,6 +50,7 @@ class UpdateAfiliacion : ActivityWithMenus() {
                 runOnUiThread {
                     clearTextos()
                     Toast.makeText(this@UpdateAfiliacion, "Personaje actualizado correctamente", Toast.LENGTH_SHORT).show()
+                    actualizarRecyclerView()
                 }
             } else {
                 runOnUiThread {
@@ -60,5 +63,14 @@ class UpdateAfiliacion : ActivityWithMenus() {
     fun clearTextos() {
         binding.nombrePersonajeActualizar.setText("")
         binding.nuevaAfiliacion.setText("")
+    }
+
+    fun actualizarRecyclerView() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
+            runOnUiThread {
+                adapter.actualizarPersonajes(personajes)
+            }
+        }
     }
 }

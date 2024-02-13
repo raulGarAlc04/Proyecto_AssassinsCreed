@@ -3,6 +3,7 @@ package com.example.proyecto_assassinscreed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.DBPersonajes
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
@@ -22,7 +23,7 @@ class AnnadirPersonaje : ActivityWithMenus() {
         binding = ActivityAnnadirPersonajeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val cuadroDialogo = CuadroDialogo()
+        adapter = PersonajeAdapter(mutableListOf())
 
         binding.bAnnadir.setOnClickListener {
             if (binding.nombrePersonaje.text.isNotEmpty() && binding.anioFallecimiento.text.isNotEmpty() && binding.lugarFallecimiento.text.isNotEmpty() && binding.afiliacion.text.isNotEmpty() && (!binding.radioVillano.isChecked || !binding.radioAmigo.isChecked)) {
@@ -42,6 +43,8 @@ class AnnadirPersonaje : ActivityWithMenus() {
                         runOnUiThread {
                             clearTextos()
                             Toast.makeText(this@AnnadirPersonaje, "Personaje insertado",Toast.LENGTH_SHORT).show()
+                            actualizarRecyclerView()
+
                         }
                     } else {
                         runOnUiThread {
@@ -63,6 +66,15 @@ class AnnadirPersonaje : ActivityWithMenus() {
         binding.afiliacion.setText("")
         binding.radioVillano.isChecked = false
         binding.radioAmigo.isChecked = false
+    }
+
+    fun actualizarRecyclerView() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
+            runOnUiThread {
+                adapter.actualizarPersonajes(personajes)
+            }
+        }
     }
 
 }

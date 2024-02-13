@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".UpdateAfiliacion">
 
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/daga_cronos"
+        android:layout_marginTop="90dp"
+        app:layout_constraintBottom_toTopOf="@+id/nuevaAfiliacion"
+        app:layout_constraintEnd_toStartOf="@+id/nombrePersonajeActualizar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/nombrePersonajeActualizar"
         android:layout_width="match_parent"
@@ -37,7 +48,9 @@
         android:id="@+id/bActualizar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="60dp"
         android:text="ACTUALIZAR"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="361dp"
@@ -46,4 +59,5 @@
         android:fontFamily="@font/cinzel_regular"
         android:textStyle="bold"
         />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
