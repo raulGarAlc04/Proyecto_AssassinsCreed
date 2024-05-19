@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UpdateAfiliacion : ActivityWithMenus() {
+class UpdateAfiliacion : ActivityMenuPersonajes() {
     lateinit var binding: ActivityUpdateAfiliacionBinding
     lateinit var adapter: PersonajeAdapter
 
@@ -24,7 +24,7 @@ class UpdateAfiliacion : ActivityWithMenus() {
 
         adapter = PersonajeAdapter(mutableListOf())
 
-        binding.bActualizar.setOnClickListener {
+        binding.bActualizarAfiliacion.setOnClickListener {
 
 
             if (binding.nombrePersonajeActualizar.text.isNotEmpty() && binding.nuevaAfiliacion.text.isNotEmpty()) {

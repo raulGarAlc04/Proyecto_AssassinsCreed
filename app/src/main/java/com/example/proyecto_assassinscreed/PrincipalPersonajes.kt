@@ -3,7 +3,7 @@ package com.example.proyecto_assassinscreed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class PrincipalPersonajes : AppCompatActivity() {
+class PrincipalPersonajes : ActivityMenuPersonajes() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal_personajes)

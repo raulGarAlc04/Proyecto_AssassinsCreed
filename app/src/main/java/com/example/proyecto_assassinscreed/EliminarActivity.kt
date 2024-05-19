@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class EliminarActivity : ActivityWithMenus() {
+class EliminarActivity : ActivityMenuPersonajes() {
     lateinit var binding: ActivityEliminarBinding
     lateinit var adapter: PersonajeAdapter
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListarPersonajes : ActivityWithMenus() {
+class ListarPersonajes : ActivityMenuPersonajes() {
     lateinit var binding: ActivityListarPersonajesBinding
     lateinit var personajes: MutableList<Personajes>
     lateinit var adapter: PersonajeAdapter

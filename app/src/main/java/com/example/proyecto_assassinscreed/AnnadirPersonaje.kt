@@ -13,7 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AnnadirPersonaje : ActivityWithMenus() {
+class AnnadirPersonaje : ActivityMenuPersonajes() {
     lateinit var binding : ActivityAnnadirPersonajeBinding
     lateinit var adapter: PersonajeAdapter
 

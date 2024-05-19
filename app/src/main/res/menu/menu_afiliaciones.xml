@@ -2,32 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/principal_personajes"
+        android:id="@+id/principal_afiliaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Personajes" />
+        android:title="Afiliaciones" />
     <item
-        android:id="@+id/annadir_personaje"
+        android:id="@+id/annadir_afiliacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Añadir Personaje" />
+        android:title="Añadir Afiliacion" />
     <item
-        android:id="@+id/eliminar_personaje"
+        android:id="@+id/eliminar_afiliacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Eliminar Personaje" />
+        android:title="Eliminar Afiliacion" />
     <item
-        android:id="@+id/actualizar_personaje"
+        android:id="@+id/actualizar_afiliacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Actualizar Personajes" />
+        android:title="Actualizar Afiliacion" />
     <item
-        android:id="@+id/listar_personajes"
+        android:id="@+id/listar_afiliacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Listar Personajes" />
+        android:title="Listar Afiliacion" />
     <item
-        android:id="@+id/volver_inicio"
+        android:id="@+id/volver_inicioAf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Menu Principal" />
