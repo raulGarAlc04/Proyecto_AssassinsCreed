@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnnadirAfiliacion">
+
+    <ImageView
+        android:id="@+id/espada_damocles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/espada_damocles"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titulo_annadir_afiliacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="AÑADIR AFILIACION"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="56dp"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/nombreAfiliacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Nombre del la afiliacion"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="102dp"
+        app:layout_constraintTop_toBottomOf="@id/titulo_annadir_afiliacion"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <Spinner
+        android:id="@+id/spLider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nombreAfiliacion"/>
+
+    <EditText
+        android:id="@+id/guarida"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Guarida"
+        app:layout_constraintTop_toBottomOf="@id/spLider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/fechaFundacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Fecha de fundacion"
+        app:layout_constraintTop_toBottomOf="@id/guarida"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Descripcion"
+        app:layout_constraintTop_toBottomOf="@id/fechaFundacion"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cinzel_regular"/>
+
+    <RadioGroup
+        android:id="@+id/grupo_radio"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descripcion">
+
+        <RadioButton
+            android:id="@+id/radioCriminal"
+            android:layout_width="123dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/cinzel_regular"
+            android:text="Criminal"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radioPacifica"
+            android:layout_width="136dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/cinzel_regular"
+            android:text="Pacifica"
+            android:textSize="18sp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bAnnadirAfiliacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/cinzel_regular"
+        android:text="AÑADIR AFILIACION"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/grupo_radio"
+        tools:layout_editor_absoluteY="434dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

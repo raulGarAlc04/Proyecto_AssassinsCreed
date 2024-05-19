@@ -45,7 +45,7 @@
         tools:layout_editor_absoluteY="154dp" />
 
     <Button
-        android:id="@+id/bActualizar"
+        android:id="@+id/bActualizarAfiliacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

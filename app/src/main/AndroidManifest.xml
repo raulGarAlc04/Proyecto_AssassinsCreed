@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,13 +20,52 @@
         android:theme="@style/Theme.Proyecto_AssassinsCreed"
         tools:targetApi="31">
         <activity
+            android:name=".PrincipalDominios"
+            android:exported="false" />
+        <activity
+            android:name=".PrincipalCiudades"
+            android:exported="false" />
+        <activity
+            android:name=".PrincipalAfliaciones"
+            android:exported="false" />
+        <activity
+            android:name=".PrincipalPersonajes"
+            android:exported="false" />
+        <activity
+            android:name=".EliminarDominio"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateDominio"
+            android:exported="false" />
+        <activity
+            android:name=".AnnadirDominio"
+            android:exported="false" />
+        <activity
+            android:name=".EliminarCiudad"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCiudad"
+            android:exported="false" />
+        <activity
+            android:name=".AnnadirCiudad"
+            android:exported="false" />
+        <activity
+            android:name=".EliminarAfiliacion"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateLider"
+            android:exported="false" />
+        <activity
+            android:name=".AnnadirAfiliacion"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity

@@ -10,6 +10,5 @@ data class Ciudades(
     var gobernador:String = "",
     var isla:String = "",
     var dominio:String = "",
-    var descripcion:String = "",
-    var personajeImportante:String = ""
+    var descripcion:String = ""
 )
