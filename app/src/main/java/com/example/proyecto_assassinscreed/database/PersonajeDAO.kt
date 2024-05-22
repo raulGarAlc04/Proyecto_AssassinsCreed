@@ -14,6 +14,9 @@ interface PersonajeDAO {
     @Query("SELECT * FROM personajes WHERE nombrePersonaje like :nombre")
     fun personajePorNombre(nombre: String): MutableList<Personajes>
 
+    @Query("SELECT nombrePersonaje FROM personajes")
+    fun nombresPersonajes(): MutableList<String>
+
     @Insert
     fun addPersonaje(elemento: Personajes)
 

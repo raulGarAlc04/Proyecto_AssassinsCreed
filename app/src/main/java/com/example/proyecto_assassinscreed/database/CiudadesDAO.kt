@@ -14,6 +14,9 @@ interface CiudadesDAO {
     @Query("SELECT * FROM ciudades WHERE ciudad like :nombre")
     fun ciudadPorNombre(nombre: String): MutableList<Ciudades>
 
+    @Query("SELECT ciudad FROM ciudades")
+    fun nombresCiudades(): MutableList<String>
+
     @Insert
     fun addCiudad(elemento: Ciudades)
 

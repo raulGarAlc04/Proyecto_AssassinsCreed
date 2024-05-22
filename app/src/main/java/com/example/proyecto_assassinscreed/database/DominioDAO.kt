@@ -14,6 +14,9 @@ interface DominioDAO {
     @Query("SELECT * FROM dominio WHERE nombreDominio like :nombre")
     fun dominioPorNombre(nombre: String): MutableList<Dominio>
 
+    @Query("SELECT nombreDominio FROM dominio")
+    fun nombresDiminios(): MutableList<String>
+
     @Insert
     fun addDominio(elemento: Dominio)
 
