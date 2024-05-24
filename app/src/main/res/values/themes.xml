@@ -6,13 +6,26 @@
         <item name="colorPrimary">#607D8B</item>
         <item name="colorPrimaryDark">#455A64</item>
         <item name="colorAccent">#FFC107</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.Proyecto_AssassinsCreed" parent="Base.Theme.Proyecto_AssassinsCreed" />
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
-        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/logo</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/logo
+        </item>
         <item name="postSplashScreenTheme">@style/Theme.Proyecto_AssassinsCreed</item>
     </style>
+
+    <style name="Theme.Proyecto_AssassinsCreed.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Proyecto_AssassinsCreed.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Proyecto_AssassinsCreed.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
