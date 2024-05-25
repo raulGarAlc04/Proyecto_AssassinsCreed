@@ -3,7 +3,7 @@ package com.example.proyecto_assassinscreed
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class EliminarAfiliacion : ActivityMenuAfiliacion() {
+class EliminarAfiliacion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eliminar_afiliacion)

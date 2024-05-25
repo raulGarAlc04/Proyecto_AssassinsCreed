@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AnnadirDominio : ActivityMenuDominios() {
+class AnnadirDominio : AppCompatActivity() {
     private lateinit var binding: ActivityAnnadirDominioBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

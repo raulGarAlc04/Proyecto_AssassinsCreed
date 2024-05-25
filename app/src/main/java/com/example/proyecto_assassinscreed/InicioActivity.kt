@@ -2,12 +2,11 @@ package com.example.proyecto_assassinscreed
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -16,23 +15,25 @@ import android.widget.Toolbar
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.proyecto_assassinscreed.databinding.ActivityInicioBinding
-import com.google.android.material.navigation.DrawerLayoutUtils
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class InicioActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener{
+open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    lateinit var drawer: DrawerLayout
-    lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawer: DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var navigationView: NavigationView
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
-    lateinit var imagen: ImageButton
-    lateinit var binding: ActivityInicioBinding
-    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-        uri ->
+    private lateinit var imagen: ImageButton
+    private lateinit var binding: ActivityInicioBinding
+
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
             imagen.setImageURI(uri)
         } else {
@@ -45,19 +46,17 @@ class InicioActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSele
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbarMenu)
+        toolbar = findViewById(R.id.toolbarMenu)
         setSupportActionBar(toolbar)
 
         drawer = binding.drawerLayout
 
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-
         drawer.addDrawerListener(toggle)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeButtonEnabled(true)
+        toggle.syncState()
 
-        val navigationView: NavigationView = binding.navView
+        navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this)
 
         imagen = binding.bFotoPerfil
@@ -67,26 +66,56 @@ class InicioActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSele
 
         binding.btnCerrarSesion.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-
             startActivity(Intent(this, MainActivity::class.java))
         }
 
         binding.bFotoPerfil.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item1 -> Toast.makeText(this, "item 1", Toast.LENGTH_SHORT).show()
-        }
+            R.id.inicio -> {
+                val intent = Intent(this, InicioActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
 
-        drawer.closeDrawer(GravityCompat.START)
+            }
+
+            R.id.insertarPersonaje -> {
+                val intent = Intent(this, AnnadirPersonaje::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+
+            }
+
+            R.id.insertarAfiliacion -> {
+                val intent = Intent(this, AnnadirAfiliacion::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+
+            }
+
+            R.id.insertarCiudad -> {
+                val intent = Intent(this, AnnadirCiudad::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+
+            }
+
+            R.id.insertarDominio -> {
+                val intent = Intent(this, AnnadirDominio::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+
+            }
+        }
+        drawer.closeDrawers()
         return true
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         toggle.syncState()
     }
@@ -103,13 +132,8 @@ class InicioActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSele
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu,
-        v: View,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
-
         menuInflater.inflate(R.menu.menu_contextual, menu)
         menu.setHeaderTitle("Opciones sobre la imagen")
     }
@@ -117,22 +141,19 @@ class InicioActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSele
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.copiarImagen -> {
-                Toast.makeText(this, "Imagen copiada al portapeles",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Imagen copiada al portapeles", Toast.LENGTH_SHORT).show()
                 true
             }
-
             R.id.ocultarImagen -> {
                 binding.bFotoPerfil.isVisible = false
-                Toast.makeText(this, "Foto de perfil ocultada",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Foto de perfil ocultada", Toast.LENGTH_SHORT).show()
                 true
             }
-
             R.id.mostrarFoto -> {
                 binding.bFotoPerfil.isVisible = true
                 Toast.makeText(this, "Foto de perfil visible de nuevo", Toast.LENGTH_SHORT).show()
                 true
             }
-
             else -> super.onContextItemSelected(item)
         }
     }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AnnadirAfiliacion : ActivityMenuAfiliacion() {
+class AnnadirAfiliacion : AppCompatActivity() {
     private lateinit var binding: ActivityAnnadirAfiliacionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

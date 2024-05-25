@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AnnadirCiudad : ActivityMenuCiudades() {
+class AnnadirCiudad : AppCompatActivity() {
     private lateinit var binding: ActivityAnnadirCiudadBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

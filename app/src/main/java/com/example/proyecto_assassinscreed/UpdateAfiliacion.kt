@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UpdateAfiliacion : ActivityMenuPersonajes() {
+class UpdateAfiliacion : AppCompatActivity() {
     lateinit var binding: ActivityUpdateAfiliacionBinding
     lateinit var adapter: PersonajeAdapter
 

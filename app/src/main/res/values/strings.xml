@@ -2,4 +2,10 @@
     <string name="app_name">Proyecto_AssassinsCreed</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+    <string name="insertar_personaje">Insertar Personaje</string>
+    <string name="insercion_de_datos">Insercion De Datos</string>
+    <string name="inicio">Inicio</string>
+    <string name="insertar_afiliacion">Insertar Afiliacion</string>
+    <string name="insertar_ciudad">Insertar Ciudad</string>
+    <string name="insertar_dominio">Insertar Dominio</string>
 </resources>
