@@ -126,6 +126,12 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
             }
+
+            R.id.listarDominio -> {
+                val intent = Intent(this, ListarDominios::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+            }
         }
         drawer.closeDrawers()
         return true

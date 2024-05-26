@@ -2,48 +2,40 @@ package com.example.proyecto_assassinscreed
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.os.Bundle
-import android.util.Log
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.widget.ImageButton
-import android.widget.Toast
-import android.widget.Toolbar
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
+import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.proyecto_assassinscreed.databinding.ActivityInicioBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.proyecto_assassinscreed.adapter.CiudadAdapter
+import com.example.proyecto_assassinscreed.adapter.DominioAdapter
+import com.example.proyecto_assassinscreed.database.Ciudades
+import com.example.proyecto_assassinscreed.database.Dominio
+import com.example.proyecto_assassinscreed.database.MiPersonajesApp
+import com.example.proyecto_assassinscreed.databinding.ActivityListarCiudadesBinding
+import com.example.proyecto_assassinscreed.databinding.ActivityListarDominiosBinding
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var navigationView: NavigationView
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
-    private lateinit var imagen: ImageButton
-    private lateinit var binding: ActivityInicioBinding
-
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        if (uri != null) {
-            imagen.setImageURI(uri)
-        } else {
-            // Imagen no seleccionada
-        }
-    }
+    lateinit var binding: ActivityListarDominiosBinding
+    lateinit var dominios: MutableList<Dominio>
+    lateinit var adapter: DominioAdapter
+    lateinit var recycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInicioBinding.inflate(layoutInflater)
+        binding = ActivityListarDominiosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         toolbar = findViewById(R.id.toolbarMenu)
@@ -59,18 +51,19 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         navigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this)
 
-        imagen = binding.bFotoPerfil
+        dominios = ArrayList()
+        getDominios()
 
-        val foto = binding.imagenInicio
-        registerForContextMenu(foto)
-
-        binding.btnCerrarSesion.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
-        binding.bFotoPerfil.setOnClickListener {
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        binding.buscadorDominios.addTextChangedListener { buscador ->
+            val textoBuscador = buscador.toString()
+            CoroutineScope(Dispatchers.IO).launch {
+                val buscadorDominios = MiPersonajesApp.database.dominioDao().getAllDominios().filter { dominio ->
+                    dominio.nombreDominio.contains(textoBuscador, ignoreCase = true)
+                }
+                runOnUiThread {
+                    adapter.actualizarDominio(buscadorDominios as MutableList<Dominio>)
+                }
+            }
         }
     }
 
@@ -156,29 +149,15 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.menu_contextual, menu)
-        menu.setHeaderTitle("Opciones sobre la imagen")
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.copiarImagen -> {
-                Toast.makeText(this, "Imagen copiada al portapeles", Toast.LENGTH_SHORT).show()
-                true
+    fun getDominios() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dominios = MiPersonajesApp.database.dominioDao().getAllDominios()
+            runOnUiThread {
+                adapter = DominioAdapter(dominios)
+                recycler = binding.recyclerDominios
+                recycler.layoutManager = LinearLayoutManager(this@ListarDominios)
+                recycler.adapter = adapter
             }
-            R.id.ocultarImagen -> {
-                binding.bFotoPerfil.isVisible = false
-                Toast.makeText(this, "Foto de perfil ocultada", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.mostrarFoto -> {
-                binding.bFotoPerfil.isVisible = true
-                Toast.makeText(this, "Foto de perfil visible de nuevo", Toast.LENGTH_SHORT).show()
-                true
-            }
-            else -> super.onContextItemSelected(item)
         }
     }
 }
