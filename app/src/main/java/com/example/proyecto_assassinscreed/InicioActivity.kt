@@ -123,6 +123,11 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 startActivity(intent)
             }
 
+            R.id.listarCiudad -> {
+                val intent = Intent(this, ListarCiudades::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+            }
         }
         drawer.closeDrawers()
         return true

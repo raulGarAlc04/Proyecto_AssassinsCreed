@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/photoCiudad"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/ciudadName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre ciudad"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/photoCiudad"
+            android:textSize="15dp"
+            android:fontFamily="@font/cinzel_regular"/>
+
+        <TextView
+            android:id="@+id/gobernador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gobernador"
+            app:layout_constraintTop_toBottomOf="@id/ciudadName"
+            app:layout_constraintLeft_toRightOf="@id/photoCiudad"
+            android:textSize="15dp"
+            android:fontFamily="@font/cinzel_regular"/>
+
+        <TextView
+            android:id="@+id/isla"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Isla"
+            app:layout_constraintLeft_toRightOf="@id/photoCiudad"
+            app:layout_constraintTop_toBottomOf="@id/gobernador"
+            android:textSize="15dp"
+            android:fontFamily="@font/cinzel_regular"/>
+
+        <TextView
+            android:id="@+id/dominio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dominio"
+            app:layout_constraintTop_toBottomOf="@id/isla"
+            app:layout_constraintLeft_toRightOf="@id/photoCiudad"
+            android:textSize="15dp"
+            android:fontFamily="@font/cinzel_regular"/>
+
+        <TextView
+            android:id="@+id/descripcionCiudad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            app:layout_constraintTop_toBottomOf="@id/dominio"
+            app:layout_constraintLeft_toRightOf="@id/photoCiudad"
+            android:textSize="15dp"
+            android:fontFamily="@font/cinzel_regular"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

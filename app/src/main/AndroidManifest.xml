@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Proyecto_AssassinsCreed"
         tools:targetApi="31">
         <activity
+            android:name=".ListarCiudades"
+            android:exported="false" />
+        <activity
             android:name=".ListarAfiliaciones"
             android:exported="false" />
         <activity
