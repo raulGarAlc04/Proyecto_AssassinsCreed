@@ -22,4 +22,20 @@
                 android:title="@string/insertar_dominio"/>
         </menu>
     </item>
+    <item android:title="@string/listado_de_datos">
+        <menu>
+            <item android:id="@+id/listarPersonaje"
+                android:icon="@drawable/logo"
+                android:title="@string/listar_personaje"/>
+            <item android:id="@+id/listarAfiliacion"
+                android:icon="@drawable/logo"
+                android:title="@string/listar_afiliacion"/>
+            <item android:id="@+id/listarCiudad"
+                android:icon="@drawable/logo"
+                android:title="@string/listar_ciudad"/>
+            <item android:id="@+id/listarDominio"
+                android:icon="@drawable/logo"
+                android:title="@string/listar_dominio"/>
+        </menu>
+    </item>
 </menu>

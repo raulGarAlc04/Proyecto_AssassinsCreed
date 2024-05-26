@@ -119,6 +119,18 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
 
             }
+
+            R.id.listarPersonaje -> {
+                val intent = Intent(this, ListarPersonajes::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+            }
+
+            R.id.listarAfiliacion -> {
+                val intent = Intent(this, ListarAfiliaciones::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
+            }
         }
         drawer.closeDrawers()
         return true

@@ -8,4 +8,9 @@
     <string name="insertar_afiliacion">Insertar Afiliacion</string>
     <string name="insertar_ciudad">Insertar Ciudad</string>
     <string name="insertar_dominio">Insertar Dominio</string>
+    <string name="listado_de_datos">Listado De Datos</string>
+    <string name="listar_personaje">Listar Personaje</string>
+    <string name="listar_afiliacion">Listar Afiliacion</string>
+    <string name="listar_ciudad">Listar Ciudad</string>
+    <string name="listar_dominio">Listar Dominio</string>
 </resources>

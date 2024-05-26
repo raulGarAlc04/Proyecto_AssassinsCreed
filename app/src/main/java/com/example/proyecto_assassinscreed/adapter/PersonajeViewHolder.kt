@@ -13,8 +13,11 @@ class PersonajeViewHolder(view: View):RecyclerView.ViewHolder(view) {
         binding.anioMuerte.text = personajeModel.anioFallecimiento
         binding.lugarMuerte.text = personajeModel.lugarFallecimiento
         binding.afiliado.text = personajeModel.afiliacion
-        binding.villano.text = personajeModel.villano.toString()
-
+        if (personajeModel.villano) {
+            binding.villano.text = "Villano"
+        } else {
+            binding.villano.text = "Bueno"
+        }
     }
 
     fun bind(personaje: Personajes) {
@@ -22,6 +25,10 @@ class PersonajeViewHolder(view: View):RecyclerView.ViewHolder(view) {
         binding.anioMuerte.text = personaje.anioFallecimiento
         binding.lugarMuerte.text = personaje.lugarFallecimiento
         binding.afiliado.text = personaje.afiliacion
-        binding.villano.text = personaje.villano.toString()
+        if (personaje.villano) {
+            binding.villano.text = "Villano"
+        } else {
+            binding.villano.text = "Bueno"
+        }
     }
 }
