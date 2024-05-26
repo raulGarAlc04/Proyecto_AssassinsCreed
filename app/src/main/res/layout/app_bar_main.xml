@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/toolbarMenu"
-            android:background="@color/black"
+            android:background="#248e9e"
             app:layout_scrollFlags="scroll|enterAlways"
             />
     </com.google.android.material.appbar.AppBarLayout>

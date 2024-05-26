@@ -31,7 +31,7 @@
         android:id="@+id/titulo_annadir_ciudad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="80dp"
         android:text="AÑADIR CIUDAD"
         tools:layout_editor_absoluteX="177dp"
         tools:layout_editor_absoluteY="56dp"
