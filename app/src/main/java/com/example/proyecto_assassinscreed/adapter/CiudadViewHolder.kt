@@ -2,9 +2,7 @@ package com.example.proyecto_assassinscreed.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyecto_assassinscreed.database.Afiliaciones
 import com.example.proyecto_assassinscreed.database.Ciudades
-import com.example.proyecto_assassinscreed.databinding.ItemAfiliacionBinding
 import com.example.proyecto_assassinscreed.databinding.ItemCiudadBinding
 
 class CiudadViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -18,11 +16,13 @@ class CiudadViewHolder(view: View): RecyclerView.ViewHolder(view) {
         bindingCiudades.descripcionCiudad.text = ciudadesModel.descripcion
     }
 
-    fun bind(ciudad: Ciudades) {
+    fun bind(ciudad: Ciudades, deleteCiudadLista: (Ciudades) -> Unit) {
         bindingCiudades.ciudadName.text = ciudad.ciudad
         bindingCiudades.gobernador.text = ciudad.gobernador
         bindingCiudades.isla.text = ciudad.isla
         bindingCiudades.dominio.text = ciudad.dominio
         bindingCiudades.descripcionCiudad.text = ciudad.descripcion
+
+        bindingCiudades.trashButton.setOnClickListener { deleteCiudadLista(ciudad) }
     }
 }

@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.database.Personajes
-import com.example.proyecto_assassinscreed.databinding.ActivityAnnadirPersonajeBinding
 import com.example.proyecto_assassinscreed.databinding.ActivityListarPersonajesBinding
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
@@ -76,35 +76,35 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarPersonaje -> {
                 val intent = Intent(this, AnnadirPersonaje::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarAfiliacion -> {
                 val intent = Intent(this, AnnadirAfiliacion::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarCiudad -> {
                 val intent = Intent(this, AnnadirCiudad::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarDominio -> {
                 val intent = Intent(this, AnnadirDominio::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
@@ -158,10 +158,24 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
         CoroutineScope(Dispatchers.IO).launch {
             personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
             runOnUiThread {
-                adapter = PersonajeAdapter(personajes)
+                adapter = PersonajeAdapter(personajes, { deletePersonaje(it) } )
                 recycler = binding.recycler
                 recycler.layoutManager = LinearLayoutManager(this@ListarPersonajes)
                 recycler.adapter = adapter
+            }
+        }
+    }
+
+    fun deletePersonaje(personaje: Personajes) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val position = personajes.indexOf(personaje)
+            MiPersonajesApp.database.personajeDao().deletePersonaje(personaje)
+            personajes.remove(personaje)
+            MiPersonajesApp.database.afiliacionesDao().deletePorLider(personaje.nombrePersonaje)
+            MiPersonajesApp.database.ciudadesDao().deletePorGobernador(personaje.nombrePersonaje)
+            MiPersonajesApp.database.dominioDao().deletePorLiderDominio(personaje.nombrePersonaje)
+            runOnUiThread {
+                adapter.notifyItemRemoved(position)
             }
         }
     }

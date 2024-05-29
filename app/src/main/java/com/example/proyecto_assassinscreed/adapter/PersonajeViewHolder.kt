@@ -20,7 +20,7 @@ class PersonajeViewHolder(view: View):RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(personaje: Personajes) {
+    fun bind(personaje: Personajes, deletePersonajeLista: (Personajes) -> Unit) {
         binding.personajeName.text = personaje.nombrePersonaje
         binding.anioMuerte.text = personaje.anioFallecimiento
         binding.lugarMuerte.text = personaje.lugarFallecimiento
@@ -30,5 +30,7 @@ class PersonajeViewHolder(view: View):RecyclerView.ViewHolder(view) {
         } else {
             binding.villano.text = "Bueno"
         }
+
+        binding.trashButton.setOnClickListener { deletePersonajeLista(personaje) }
     }
 }

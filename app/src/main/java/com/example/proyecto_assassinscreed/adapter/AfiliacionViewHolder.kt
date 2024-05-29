@@ -3,9 +3,7 @@ package com.example.proyecto_assassinscreed.adapter
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.database.Afiliaciones
-import com.example.proyecto_assassinscreed.database.Personajes
 import com.example.proyecto_assassinscreed.databinding.ItemAfiliacionBinding
-import com.example.proyecto_assassinscreed.databinding.ItemPersonajeBinding
 
 class AfiliacionViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val bindingAfiliaciones = ItemAfiliacionBinding.bind(view)
@@ -23,7 +21,7 @@ class AfiliacionViewHolder(view: View): RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(afiliacion: Afiliaciones) {
+    fun bind(afiliacion: Afiliaciones, deleteAfiliacionLista: (Afiliaciones) -> Unit) {
         bindingAfiliaciones.afiliacionName.text = afiliacion.nombreAfiliacion
         bindingAfiliaciones.lider.text = afiliacion.lider
         bindingAfiliaciones.guarida.text = afiliacion.guarida
@@ -34,5 +32,7 @@ class AfiliacionViewHolder(view: View): RecyclerView.ViewHolder(view) {
         } else {
             bindingAfiliaciones.orgCriminal.text = "Organizacion Pacifica"
         }
+
+        bindingAfiliaciones.trashButton.setOnClickListener { deleteAfiliacionLista(afiliacion) }
     }
 }

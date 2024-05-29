@@ -99,35 +99,35 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarPersonaje -> {
                 val intent = Intent(this, AnnadirPersonaje::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarAfiliacion -> {
                 val intent = Intent(this, AnnadirAfiliacion::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarCiudad -> {
                 val intent = Intent(this, AnnadirCiudad::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarDominio -> {
                 val intent = Intent(this, AnnadirDominio::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }

@@ -20,6 +20,12 @@ interface AfiliacionesDAO {
     @Delete
     fun deleteAfiliacion(elemento: Afiliaciones)
 
+    @Query("DELETE FROM afiliaciones WHERE lider like :nombreLider")
+    fun deletePorLider(nombreLider: String)
+
+    @Query("UPDATE afiliaciones SET lider = :nombreLiderAct WHERE nombreAfiliacion like :nombreAfiliacion")
+    fun updateAfiliacion(nombreLiderAct: String, nombreAfiliacion: String)
+
     @Update
     fun updateAfiliacion(elemento: Afiliaciones)
 }

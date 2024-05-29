@@ -14,6 +14,7 @@ import com.example.proyecto_assassinscreed.adapter.AfiliacionAdapter
 import com.example.proyecto_assassinscreed.adapter.CiudadAdapter
 import com.example.proyecto_assassinscreed.database.Afiliaciones
 import com.example.proyecto_assassinscreed.database.Ciudades
+import com.example.proyecto_assassinscreed.database.Dominio
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.databinding.ActivityListarAfiliacionesBinding
 import com.example.proyecto_assassinscreed.databinding.ActivityListarCiudadesBinding
@@ -71,35 +72,35 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarPersonaje -> {
                 val intent = Intent(this, AnnadirPersonaje::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarAfiliacion -> {
                 val intent = Intent(this, AnnadirAfiliacion::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarCiudad -> {
                 val intent = Intent(this, AnnadirCiudad::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarDominio -> {
                 val intent = Intent(this, AnnadirDominio::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
@@ -153,10 +154,21 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         CoroutineScope(Dispatchers.IO).launch {
             ciudades = MiPersonajesApp.database.ciudadesDao().getAllCiudades()
             runOnUiThread {
-                adapter = CiudadAdapter(ciudades)
+                adapter = CiudadAdapter(ciudades, { deleteCiudad(it) })
                 recycler = binding.recyclerCiudades
                 recycler.layoutManager = LinearLayoutManager(this@ListarCiudades)
                 recycler.adapter = adapter
+            }
+        }
+    }
+
+    fun deleteCiudad(ciudad: Ciudades) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val position = ciudades.indexOf(ciudad)
+            MiPersonajesApp.database.ciudadesDao().deleteCiudad(ciudad)
+            ciudades.remove(ciudad)
+            runOnUiThread {
+                adapter.notifyItemRemoved(position)
             }
         }
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.adapter.AfiliacionAdapter
 import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.Afiliaciones
+import com.example.proyecto_assassinscreed.database.Dominio
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.database.Personajes
 import com.example.proyecto_assassinscreed.databinding.ActivityAnnadirDominioBinding
@@ -73,35 +74,35 @@ class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarPersonaje -> {
                 val intent = Intent(this, AnnadirPersonaje::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarAfiliacion -> {
                 val intent = Intent(this, AnnadirAfiliacion::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarCiudad -> {
                 val intent = Intent(this, AnnadirCiudad::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarDominio -> {
                 val intent = Intent(this, AnnadirDominio::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
@@ -155,10 +156,21 @@ class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemS
         CoroutineScope(Dispatchers.IO).launch {
             afiliaciones = MiPersonajesApp.database.afiliacionesDao().getAllAfiliaciones()
             runOnUiThread {
-                adapter = AfiliacionAdapter(afiliaciones)
+                adapter = AfiliacionAdapter(afiliaciones, { deleteAfiliacion(it) })
                 recycler = binding.recyclerAfiliaciones
                 recycler.layoutManager = LinearLayoutManager(this@ListarAfiliaciones)
                 recycler.adapter = adapter
+            }
+        }
+    }
+
+    fun deleteAfiliacion(afiliacion: Afiliaciones) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val position = afiliaciones.indexOf(afiliacion)
+            MiPersonajesApp.database.afiliacionesDao().deleteAfiliacion(afiliacion)
+            afiliaciones.remove(afiliacion)
+            runOnUiThread {
+                adapter.notifyItemRemoved(position)
             }
         }
     }

@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyecto_assassinscreed.R
 import com.example.proyecto_assassinscreed.database.Afiliaciones
-import com.example.proyecto_assassinscreed.database.Personajes
 
-class AfiliacionAdapter(var afiliacionList: MutableList<Afiliaciones>): RecyclerView.Adapter<AfiliacionViewHolder>() {
+class AfiliacionAdapter(var afiliacionList: MutableList<Afiliaciones>, val deleteAfiliacionLista: (Afiliaciones) -> Unit): RecyclerView.Adapter<AfiliacionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AfiliacionViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return AfiliacionViewHolder(layoutInflater.inflate(R.layout.item_afiliacion,parent,false))
@@ -19,7 +18,7 @@ class AfiliacionAdapter(var afiliacionList: MutableList<Afiliaciones>): Recycler
 
     override fun onBindViewHolder(holder: AfiliacionViewHolder, position: Int) {
         val item = afiliacionList[position]
-        holder.bind(item)
+        holder.bind(item, deleteAfiliacionLista)
     }
 
     fun actualizarAfiliaciones(afiliaciones: MutableList<Afiliaciones>) {

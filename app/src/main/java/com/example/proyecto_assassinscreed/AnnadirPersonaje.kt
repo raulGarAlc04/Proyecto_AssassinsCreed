@@ -26,7 +26,7 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     lateinit var binding : ActivityAnnadirPersonajeBinding
-    lateinit var adapter: PersonajeAdapter
+    //lateinit var adapter: PersonajeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
         binding = ActivityAnnadirPersonajeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = PersonajeAdapter(mutableListOf())
+        //adapter = PersonajeAdapter(mutableListOf(), )
 
         toolbar = findViewById(R.id.toolbarMenu)
         setSupportActionBar(toolbar)
@@ -67,7 +67,7 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         runOnUiThread {
                             clearTextos()
                             Toast.makeText(this@AnnadirPersonaje, "Personaje insertado",Toast.LENGTH_SHORT).show()
-                            actualizarRecyclerView()
+                            //actualizarRecyclerView()
 
                         }
                     } else {
@@ -174,13 +174,13 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
         binding.radioAmigo.isChecked = false
     }
 
-    fun actualizarRecyclerView() {
+    /*fun actualizarRecyclerView() {
         CoroutineScope(Dispatchers.IO).launch {
             val personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
             runOnUiThread {
                 adapter.actualizarPersonajes(personajes)
             }
         }
-    }
+    }*/
 
 }

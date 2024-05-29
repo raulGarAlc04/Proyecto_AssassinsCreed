@@ -71,35 +71,35 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarPersonaje -> {
                 val intent = Intent(this, AnnadirPersonaje::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarAfiliacion -> {
                 val intent = Intent(this, AnnadirAfiliacion::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarCiudad -> {
                 val intent = Intent(this, AnnadirCiudad::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
 
             R.id.insertarDominio -> {
                 val intent = Intent(this, AnnadirDominio::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }
@@ -153,10 +153,21 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         CoroutineScope(Dispatchers.IO).launch {
             dominios = MiPersonajesApp.database.dominioDao().getAllDominios()
             runOnUiThread {
-                adapter = DominioAdapter(dominios)
+                adapter = DominioAdapter(dominios, { deleteDominio(it) })
                 recycler = binding.recyclerDominios
                 recycler.layoutManager = LinearLayoutManager(this@ListarDominios)
                 recycler.adapter = adapter
+            }
+        }
+    }
+
+    fun deleteDominio(dominio: Dominio) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val position = dominios.indexOf(dominio)
+            MiPersonajesApp.database.dominioDao().deleteDominio(dominio)
+            dominios.remove(dominio)
+            runOnUiThread {
+                adapter.notifyItemRemoved(position)
             }
         }
     }

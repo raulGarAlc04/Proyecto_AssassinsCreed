@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class UpdateAfiliacion : AppCompatActivity() {
     lateinit var binding: ActivityUpdateAfiliacionBinding
-    lateinit var adapter: PersonajeAdapter
+    //lateinit var adapter: PersonajeAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class UpdateAfiliacion : AppCompatActivity() {
         binding = ActivityUpdateAfiliacionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = PersonajeAdapter(mutableListOf())
+        //adapter = PersonajeAdapter(mutableListOf())
 
         binding.bActualizarAfiliacion.setOnClickListener {
 
@@ -50,7 +50,7 @@ class UpdateAfiliacion : AppCompatActivity() {
                 runOnUiThread {
                     clearTextos()
                     Toast.makeText(this@UpdateAfiliacion, "Personaje actualizado correctamente", Toast.LENGTH_SHORT).show()
-                    actualizarRecyclerView()
+                    //actualizarRecyclerView()
                 }
             } else {
                 runOnUiThread {
@@ -65,12 +65,12 @@ class UpdateAfiliacion : AppCompatActivity() {
         binding.nuevaAfiliacion.setText("")
     }
 
-    fun actualizarRecyclerView() {
+    /*fun actualizarRecyclerView() {
         CoroutineScope(Dispatchers.IO).launch {
             val personajes = MiPersonajesApp.database.personajeDao().getAllPersonajes()
             runOnUiThread {
                 adapter.actualizarPersonajes(personajes)
             }
         }
-    }
+    }*/
 }
