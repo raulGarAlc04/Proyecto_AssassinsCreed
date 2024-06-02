@@ -14,6 +14,9 @@ interface AfiliacionesDAO {
     @Query("SELECT * FROM afiliaciones WHERE nombreAfiliacion like :nombre")
     fun afiliacionPorNombre(nombre: String): MutableList<Afiliaciones>
 
+    @Query("SELECT nombreAfiliacion FROM afiliaciones")
+    fun nombresAfiliaciones(): MutableList<String>
+
     @Insert
     fun addAfiliacion(elemento: Afiliaciones)
 
@@ -22,9 +25,6 @@ interface AfiliacionesDAO {
 
     @Query("DELETE FROM afiliaciones WHERE lider like :nombreLider")
     fun deletePorLider(nombreLider: String)
-
-    @Query("UPDATE afiliaciones SET lider = :nombreLiderAct WHERE nombreAfiliacion like :nombreAfiliacion")
-    fun updateAfiliacion(nombreLiderAct: String, nombreAfiliacion: String)
 
     @Update
     fun updateAfiliacion(elemento: Afiliaciones)

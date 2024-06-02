@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.isNotEmpty
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.proyecto_assassinscreed.database.Ciudades
 import com.example.proyecto_assassinscreed.database.Dominio
@@ -66,11 +67,24 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 CoroutineScope(Dispatchers.IO).launch {
                     val dominio = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.nombreDominio.text.toString())
                     if (dominio.isEmpty()) {
+                        var liderDominio: String = ""
+                        var capital: String = ""
+                        liderDominio = if (binding.spLiderDominio.isNotEmpty()) {
+                            binding.spLiderDominio.selectedItem.toString()
+                        } else {
+                            "Dominio sin lider"
+                        }
+
+                        capital = if (binding.spCapital.isNotEmpty()) {
+                            binding.spCapital.selectedItem.toString()
+                        } else {
+                            "Dominio sin capital"
+                        }
                         MiPersonajesApp.database.dominioDao().addDominio(
                             Dominio(
                                 nombreDominio = binding.nombreDominio.text.toString(),
-                                liderDominio = binding.spLiderDominio.selectedItem.toString(),
-                                capital = binding.spCapital.selectedItem.toString(),
+                                liderDominio = liderDominio,
+                                capital = capital,
                                 descripcion = binding.nombreDominio.text.toString(),
                                 criminal = binding.radioCriminal.isChecked
                             )

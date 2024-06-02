@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.isNotEmpty
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.proyecto_assassinscreed.database.Afiliaciones
 import com.example.proyecto_assassinscreed.database.Ciudades
@@ -66,12 +67,25 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 CoroutineScope(Dispatchers.IO).launch {
                     val ciudad = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.nombreCiudad.text.toString())
                     if (ciudad.isEmpty()) {
+                        var gobernador: String = ""
+                        var dominio: String = ""
+                        gobernador = if (binding.spGobernador.isNotEmpty()) {
+                            binding.spGobernador.selectedItem.toString()
+                        } else {
+                            "Ciudad sin gobernador"
+                        }
+
+                        dominio = if (binding.spDominio.isNotEmpty()) {
+                            binding.spDominio.selectedItem.toString()
+                        } else {
+                            "Ciudad independiente"
+                        }
                         MiPersonajesApp.database.ciudadesDao().addCiudad(
                             Ciudades(
                                 ciudad = binding.nombreCiudad.text.toString(),
-                                gobernador = binding.spGobernador.selectedItem.toString(),
+                                gobernador = gobernador,
                                 isla = binding.isla.text.toString(),
-                                dominio = binding.spDominio.selectedItem.toString(),
+                                dominio = dominio,
                                 descripcion = binding.descripcionCiudad.text.toString()
                             )
                         )

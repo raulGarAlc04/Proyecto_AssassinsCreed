@@ -82,17 +82,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/cinzel_regular"/>
 
-    <EditText
-        android:id="@+id/afiliacion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Afiliación"
-        app:layout_constraintTop_toBottomOf="@id/lugarFallecimiento"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        <Spinner
+            android:id="@+id/spAfiliacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/cinzel_regular"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lugarFallecimiento"/>
 
     <RadioGroup
         android:id="@+id/grupo_radio"
@@ -101,7 +98,7 @@
         android:layout_margin="20dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/afiliacion">
+        app:layout_constraintTop_toBottomOf="@id/spAfiliacion">
 
         <RadioButton
             android:id="@+id/radioVillano"

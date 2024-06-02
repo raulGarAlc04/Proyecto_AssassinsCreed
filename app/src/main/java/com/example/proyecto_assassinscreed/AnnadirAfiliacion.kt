@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isNotEmpty
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.proyecto_assassinscreed.database.Afiliaciones
 import com.example.proyecto_assassinscreed.database.DBPersonajes
@@ -63,10 +64,16 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 CoroutineScope(Dispatchers.IO).launch {
                     val afiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorNombre(binding.nombreAfiliacion.text.toString())
                     if (afiliacion.isEmpty()) {
+                        var lider: String = ""
+                        lider = if (binding.spLider.isNotEmpty()) {
+                            binding.spLider.selectedItem.toString()
+                        } else {
+                            "Sin lider"
+                        }
                         MiPersonajesApp.database.afiliacionesDao().addAfiliacion(
                             Afiliaciones(
                                 nombreAfiliacion = binding.nombreAfiliacion.text.toString(),
-                                lider = binding.spLider.selectedItem.toString(),
+                                lider = lider,
                                 guarida = binding.guarida.text.toString(),
                                 fechaFundacion = binding.fechaFundacion.text.toString(),
                                 descripcion = binding.descripcion.text.toString(),
