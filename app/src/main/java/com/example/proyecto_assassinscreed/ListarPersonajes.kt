@@ -52,6 +52,12 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
         personajes = ArrayList()
         getPersonajes()
 
+        binding.bActualizarPersonajes.setOnClickListener {
+            val intent = Intent(this, UpdateAfiliacion::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
+
         /*binding.buscador.addTextChangedListener {buscador ->
             val buscadorPersonajes = MiPersonajesApp.database.personajeDao().getAllPersonajes().filter {personaje ->
                 personaje.nombrePersonaje.contains(buscador.toString(), ignoreCase = true) }

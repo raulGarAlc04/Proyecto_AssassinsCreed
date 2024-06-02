@@ -55,6 +55,12 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         ciudades = ArrayList()
         getCiudades()
 
+        binding.bActualizarCiudad.setOnClickListener {
+            val intent = Intent(this, UpdateCiudad::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
+
         binding.buscadorCiudades.addTextChangedListener { buscador ->
             val textoBuscador = buscador.toString()
             CoroutineScope(Dispatchers.IO).launch {

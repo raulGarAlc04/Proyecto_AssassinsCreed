@@ -1,8 +1,12 @@
 package com.example.proyecto_assassinscreed
 
+import android.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.view.isNotEmpty
 import com.example.proyecto_assassinscreed.adapter.PersonajeAdapter
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
 import com.example.proyecto_assassinscreed.database.Personajes
@@ -10,6 +14,7 @@ import com.example.proyecto_assassinscreed.databinding.ActivityUpdateAfiliacionB
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UpdateAfiliacion : AppCompatActivity() {
     lateinit var binding: ActivityUpdateAfiliacionBinding
@@ -24,23 +29,45 @@ class UpdateAfiliacion : AppCompatActivity() {
 
         //adapter = PersonajeAdapter(mutableListOf())
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val nombresPersonajes = MiPersonajesApp.database.personajeDao().nombresPersonajes()
+            val nombresAfiliaciones = MiPersonajesApp.database.afiliacionesDao().nombresAfiliaciones()
+            withContext(Dispatchers.Main) {
+                // Crear el adaptador y asignarlo al Spinner
+                val adapterPersonajes = ArrayAdapter(this@UpdateAfiliacion, R.layout.simple_spinner_item, nombresPersonajes)
+                val adapterAfiliaciones = ArrayAdapter(this@UpdateAfiliacion, R.layout.simple_spinner_item, nombresAfiliaciones)
+                adapterPersonajes.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                adapterAfiliaciones.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                binding.nombrePersonajeActualizar.adapter = adapterPersonajes
+                binding.nuevaAfiliacion.adapter = adapterAfiliaciones
+            }
+        }
+
         binding.bActualizarAfiliacion.setOnClickListener {
-
-
-            if (binding.nombrePersonajeActualizar.text.isNotEmpty() && binding.nuevaAfiliacion.text.isNotEmpty()) {
-                val nuevaAfiliacion = binding.nuevaAfiliacion.text.toString()
+            if (binding.nombrePersonajeActualizar.isNotEmpty() && binding.nuevaAfiliacion.isNotEmpty()) {
+                val nuevaAfiliacion = binding.nuevaAfiliacion.selectedItem.toString()
                 updatePersonaje(nuevaAfiliacion)
+
+                val intent = Intent(this, ListarPersonajes::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                startActivity(intent)
             } else {
-                Toast.makeText(this, "El campo no puede estar vacio", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show()
             }
 
+        }
+
+        binding.bSalirSinGuardar.setOnClickListener {
+            val intent = Intent(this, ListarPersonajes::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
         }
 
     }
 
     fun updatePersonaje(nuevaAfiliacion: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val personajes = MiPersonajesApp.database.personajeDao().personajePorNombre(binding.nombrePersonajeActualizar.text.toString())
+            val personajes = MiPersonajesApp.database.personajeDao().personajePorNombre(binding.nombrePersonajeActualizar.selectedItem.toString())
 
             if (personajes.isNotEmpty()) {
                 val personaje = personajes[0]
@@ -48,7 +75,7 @@ class UpdateAfiliacion : AppCompatActivity() {
                 MiPersonajesApp.database.personajeDao().updatePersonaje(personaje)
 
                 runOnUiThread {
-                    clearTextos()
+                    //clearTextos()
                     Toast.makeText(this@UpdateAfiliacion, "Personaje actualizado correctamente", Toast.LENGTH_SHORT).show()
                     //actualizarRecyclerView()
                 }
@@ -60,10 +87,7 @@ class UpdateAfiliacion : AppCompatActivity() {
 
         }
     }
-    fun clearTextos() {
-        binding.nombrePersonajeActualizar.setText("")
-        binding.nuevaAfiliacion.setText("")
-    }
+
 
     /*fun actualizarRecyclerView() {
         CoroutineScope(Dispatchers.IO).launch {

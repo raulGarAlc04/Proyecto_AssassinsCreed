@@ -56,6 +56,12 @@ class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemS
         afiliaciones = ArrayList()
         getAfiliaciones()
 
+        binding.bActualizarAfiliacion.setOnClickListener {
+            val intent = Intent(this, UpdateCiudad::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
+
         binding.buscadorAfiliaciones.addTextChangedListener { buscador ->
             val textoBuscador = buscador.toString()
             CoroutineScope(Dispatchers.IO).launch {

@@ -54,6 +54,12 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         dominios = ArrayList()
         getDominios()
 
+        binding.bActualizarDominio.setOnClickListener {
+            val intent = Intent(this, UpdateDominio::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
+
         binding.buscadorDominios.addTextChangedListener { buscador ->
             val textoBuscador = buscador.toString()
             CoroutineScope(Dispatchers.IO).launch {

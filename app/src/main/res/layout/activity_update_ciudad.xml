@@ -37,10 +37,26 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:fontFamily="@font/cinzel_regular"
-        android:text="ACTUALIZAR"
+        android:text="GUARDAR Y ACTUALIZAR LISTA"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/spNuevoGobernador"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_editor_absoluteY="191dp" />
+
+    <Button
+        android:id="@+id/bSalirSinGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="SALIR SIN GUARDAR"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="361dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bActualizarCiudad"
+        android:fontFamily="@font/cinzel_regular"
+        android:textStyle="bold"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
