@@ -17,6 +17,9 @@ interface AfiliacionesDAO {
     @Query("SELECT nombreAfiliacion FROM afiliaciones")
     fun nombresAfiliaciones(): MutableList<String>
 
+    @Query("SELECT * FROM afiliaciones WHERE lider like :nombreLider")
+    fun filtrarPorLider(nombreLider: String): MutableList<Afiliaciones>
+
     @Insert
     fun addAfiliacion(elemento: Afiliaciones)
 

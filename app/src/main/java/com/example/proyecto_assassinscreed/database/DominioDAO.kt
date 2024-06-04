@@ -17,6 +17,9 @@ interface DominioDAO {
     @Query("SELECT nombreDominio FROM dominio")
     fun nombresDiminios(): MutableList<String>
 
+    @Query("SELECT * FROM dominio WHERE liderDominio like :nombreLider")
+    fun filtrarPorLiderDominio(nombreLider: String): MutableList<Dominio>
+
     @Insert
     fun addDominio(elemento: Dominio)
 

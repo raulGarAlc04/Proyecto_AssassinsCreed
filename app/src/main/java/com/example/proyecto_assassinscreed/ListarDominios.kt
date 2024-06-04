@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -21,6 +22,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
@@ -54,10 +56,28 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         dominios = ArrayList()
         getDominios()
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val lideresDominio = MiPersonajesApp.database.personajeDao().nombresPersonajes()
+            withContext(Dispatchers.Main) {
+                // Crear el adaptador y asignarlo al Spinner
+                val adapterLideresDominio = ArrayAdapter(this@ListarDominios, android.R.layout.simple_spinner_item, lideresDominio)
+                adapterLideresDominio.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spLideresDominios.adapter = adapterLideresDominio
+            }
+        }
+
         binding.bActualizarDominio.setOnClickListener {
             val intent = Intent(this, UpdateDominio::class.java)
             //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             startActivity(intent)
+        }
+
+        binding.bFiltro.setOnClickListener {
+            filtroPorLiderDominio(binding.spLideresDominios.selectedItem.toString())
+        }
+
+        binding.bRestablecerFiltro.setOnClickListener {
+            getDominios()
         }
 
         binding.buscadorDominios.addTextChangedListener { buscador ->
@@ -174,6 +194,15 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             dominios.remove(dominio)
             runOnUiThread {
                 adapter.notifyItemRemoved(position)
+            }
+        }
+    }
+
+    fun filtroPorLiderDominio(liderDominio: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val dominios = MiPersonajesApp.database.dominioDao().filtrarPorLiderDominio(liderDominio)
+            runOnUiThread {
+                adapter.actualizarDominio(dominios)
             }
         }
     }

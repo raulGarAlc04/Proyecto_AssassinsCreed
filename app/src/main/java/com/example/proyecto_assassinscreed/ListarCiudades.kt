@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
@@ -55,10 +57,28 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         ciudades = ArrayList()
         getCiudades()
 
+        CoroutineScope(Dispatchers.IO).launch {
+            val dominios = MiPersonajesApp.database.dominioDao().nombresDiminios()
+            withContext(Dispatchers.Main) {
+                // Crear el adaptador y asignarlo al Spinner
+                val adapterCiudades = ArrayAdapter(this@ListarCiudades, android.R.layout.simple_spinner_item, dominios)
+                adapterCiudades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spGobernadores.adapter = adapterCiudades
+            }
+        }
+
         binding.bActualizarCiudad.setOnClickListener {
             val intent = Intent(this, UpdateCiudad::class.java)
             //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             startActivity(intent)
+        }
+
+        binding.bFiltro.setOnClickListener {
+            filtroPorDominio(binding.spGobernadores.selectedItem.toString())
+        }
+
+        binding.bRestablecerFiltro.setOnClickListener {
+            getCiudades()
         }
 
         binding.buscadorCiudades.addTextChangedListener { buscador ->
@@ -175,6 +195,15 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             ciudades.remove(ciudad)
             runOnUiThread {
                 adapter.notifyItemRemoved(position)
+            }
+        }
+    }
+
+    fun filtroPorDominio(dominio: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val ciudades = MiPersonajesApp.database.ciudadesDao().filtrarPorDominio(dominio)
+            runOnUiThread {
+                adapter.actualizarCiudades(ciudades)
             }
         }
     }

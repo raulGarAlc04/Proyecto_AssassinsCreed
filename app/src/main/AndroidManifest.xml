@@ -29,37 +29,16 @@
             android:name=".ListarAfiliaciones"
             android:exported="false" />
         <activity
-            android:name=".PrincipalDominios"
-            android:exported="false" />
-        <activity
-            android:name=".PrincipalCiudades"
-            android:exported="false" />
-        <activity
-            android:name=".PrincipalAfliaciones"
-            android:exported="false" />
-        <activity
-            android:name=".PrincipalPersonajes"
-            android:exported="false" />
-        <activity
-            android:name=".EliminarDominio"
-            android:exported="false" />
-        <activity
             android:name=".UpdateDominio"
             android:exported="false" />
         <activity
             android:name=".AnnadirDominio"
             android:exported="false" />
         <activity
-            android:name=".EliminarCiudad"
-            android:exported="false" />
-        <activity
             android:name=".UpdateCiudad"
             android:exported="false" />
         <activity
             android:name=".AnnadirCiudad"
-            android:exported="false" />
-        <activity
-            android:name=".EliminarAfiliacion"
             android:exported="false" />
         <activity
             android:name=".UpdateLider"
@@ -79,9 +58,6 @@
         </activity>
         <activity
             android:name=".UpdateAfiliacion"
-            android:exported="false" />
-        <activity
-            android:name=".EliminarActivity"
             android:exported="false" />
         <activity
             android:name=".ListarPersonajes"
