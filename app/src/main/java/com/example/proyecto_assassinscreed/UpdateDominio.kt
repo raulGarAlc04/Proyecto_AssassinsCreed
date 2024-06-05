@@ -26,10 +26,10 @@ class UpdateDominio : AppCompatActivity() {
             val nombresDominios = MiPersonajesApp.database.dominioDao().nombresDiminios()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterCiudades = ArrayAdapter(this@UpdateDominio, R.layout.simple_spinner_item, nombresCiudades)
-                val adapterDominios = ArrayAdapter(this@UpdateDominio, R.layout.simple_spinner_item, nombresDominios)
-                adapterCiudades.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                adapterDominios.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                val adapterCiudades = ArrayAdapter(this@UpdateDominio, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresCiudades)
+                val adapterDominios = ArrayAdapter(this@UpdateDominio, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresDominios)
+                adapterCiudades.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
+                adapterDominios.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
                 binding.spNuevaCapital.adapter = adapterCiudades
                 binding.spDominacion.adapter = adapterDominios
             }

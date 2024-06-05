@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
@@ -53,8 +54,8 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
             val nombres = MiPersonajesApp.database.personajeDao().nombresPersonajes()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapter = ArrayAdapter(this@AnnadirAfiliacion, android.R.layout.simple_spinner_item, nombres)
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapter = ArrayAdapter(this@AnnadirAfiliacion, R.layout.item_spinner, nombres)
+                adapter.setDropDownViewResource(R.layout.item_spinner)
                 binding.spLider.adapter = adapter
             }
         }
@@ -158,6 +159,11 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val intent = Intent(this, ListarDominios::class.java)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
+            }
+
+            R.id.salir -> {
+                finishAffinity()
+                exitProcess(0)
             }
         }
         drawer.closeDrawers()

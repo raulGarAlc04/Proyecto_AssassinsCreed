@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
@@ -53,10 +54,10 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             val nombresCapital = MiPersonajesApp.database.ciudadesDao().nombresCiudades()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterPersonajesLider = ArrayAdapter(this@AnnadirDominio, android.R.layout.simple_spinner_item, nombresPersonajesLider)
-                val adapterCapital = ArrayAdapter(this@AnnadirDominio, android.R.layout.simple_spinner_item, nombresCapital)
-                adapterPersonajesLider.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                adapterCapital.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapterPersonajesLider = ArrayAdapter(this@AnnadirDominio, R.layout.item_spinner, nombresPersonajesLider)
+                val adapterCapital = ArrayAdapter(this@AnnadirDominio, R.layout.item_spinner, nombresCapital)
+                adapterPersonajesLider.setDropDownViewResource(R.layout.item_spinner)
+                adapterCapital.setDropDownViewResource(R.layout.item_spinner)
                 binding.spLiderDominio.adapter = adapterPersonajesLider
                 binding.spCapital.adapter = adapterCapital
             }
@@ -168,6 +169,11 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val intent = Intent(this, ListarDominios::class.java)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
+            }
+
+            R.id.salir -> {
+                finishAffinity()
+                exitProcess(0)
             }
         }
         drawer.closeDrawers()

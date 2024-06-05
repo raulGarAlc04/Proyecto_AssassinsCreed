@@ -57,14 +57,33 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/cinzel_regular"/>
 
+        <TextView
+            android:id="@+id/liderAfiliacion"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="LIDER"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/nombreAfiliacion"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/cinzel_regular"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            tools:ignore="RtlCompat"
+            android:background="@drawable/bordes"
+            />
+
     <Spinner
         android:id="@+id/spLider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         android:fontFamily="@font/cinzel_regular"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nombreAfiliacion"/>
+        app:layout_constraintTop_toBottomOf="@id/liderAfiliacion"
+        android:background="@drawable/spinner_border"/>
 
     <EditText
         android:id="@+id/guarida"

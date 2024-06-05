@@ -13,4 +13,5 @@
     <string name="listar_afiliacion">Listar Afiliacion</string>
     <string name="listar_ciudad">Listar Ciudad</string>
     <string name="listar_dominio">Listar Dominio</string>
+    <string name="salir">Salir</string>
 </resources>

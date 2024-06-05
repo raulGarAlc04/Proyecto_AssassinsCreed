@@ -38,4 +38,9 @@
                 android:title="@string/listar_dominio"/>
         </menu>
     </item>
+    <group>
+        <item android:id="@+id/salir"
+            android:icon="@drawable/logo"
+            android:title="@string/salir"/>
+    </group>
 </menu>

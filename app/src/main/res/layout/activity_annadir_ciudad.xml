@@ -57,13 +57,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/cinzel_regular"/>
 
+        <TextView
+            android:id="@+id/gobernadorCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="GOBERNADOR"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/nombreCiudad"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/cinzel_regular"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            tools:ignore="RtlCompat"
+            android:background="@drawable/bordes"
+            />
+
     <Spinner
         android:id="@+id/spGobernador"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nombreCiudad"/>
+        app:layout_constraintTop_toBottomOf="@id/gobernadorCiudad"
+        android:background="@drawable/spinner_border"/>
 
     <EditText
         android:id="@+id/isla"
@@ -77,13 +96,32 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/cinzel_regular"/>
 
+        <TextView
+            android:id="@+id/dominioCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="DOMINIO"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/isla"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/cinzel_regular"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            tools:ignore="RtlCompat"
+            android:background="@drawable/bordes"
+            />
+
     <Spinner
         android:id="@+id/spDominio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/isla"/>
+        app:layout_constraintTop_toBottomOf="@id/dominioCiudad"
+        android:background="@drawable/spinner_border"/>
 
     <EditText
         android:id="@+id/descripcionCiudad"

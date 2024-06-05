@@ -25,10 +25,10 @@ class UpdateLider : AppCompatActivity() {
             val nombresAfiliaciones = MiPersonajesApp.database.afiliacionesDao().nombresAfiliaciones()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterPersonajes = ArrayAdapter(this@UpdateLider, R.layout.simple_spinner_item, nombresPersonajes)
-                val adapterAfiliaciones = ArrayAdapter(this@UpdateLider, R.layout.simple_spinner_item, nombresAfiliaciones)
-                adapterPersonajes.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                adapterAfiliaciones.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                val adapterPersonajes = ArrayAdapter(this@UpdateLider, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresPersonajes)
+                val adapterAfiliaciones = ArrayAdapter(this@UpdateLider, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresAfiliaciones)
+                adapterPersonajes.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
+                adapterAfiliaciones.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
                 binding.spNuevoLider.adapter = adapterPersonajes
                 binding.spAfiliacion.adapter = adapterAfiliaciones
             }

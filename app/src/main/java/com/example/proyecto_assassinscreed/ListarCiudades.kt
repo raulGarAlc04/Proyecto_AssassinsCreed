@@ -24,6 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawer: DrawerLayout
@@ -61,8 +62,8 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             val dominios = MiPersonajesApp.database.dominioDao().nombresDiminios()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterCiudades = ArrayAdapter(this@ListarCiudades, android.R.layout.simple_spinner_item, dominios)
-                adapterCiudades.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapterCiudades = ArrayAdapter(this@ListarCiudades, R.layout.item_spinner, dominios)
+                adapterCiudades.setDropDownViewResource(R.layout.item_spinner)
                 binding.spGobernadores.adapter = adapterCiudades
             }
         }
@@ -153,6 +154,11 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 val intent = Intent(this, ListarDominios::class.java)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
+            }
+
+            R.id.salir -> {
+                finishAffinity()
+                exitProcess(0)
             }
         }
         drawer.closeDrawers()

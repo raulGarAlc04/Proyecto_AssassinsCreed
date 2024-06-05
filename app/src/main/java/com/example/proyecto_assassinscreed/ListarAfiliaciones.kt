@@ -25,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.system.exitProcess
 
 class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     private lateinit var drawer: DrawerLayout
@@ -62,8 +63,8 @@ class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemS
             val afiliaciones = MiPersonajesApp.database.personajeDao().nombresPersonajes()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterPersonajes = ArrayAdapter(this@ListarAfiliaciones, android.R.layout.simple_spinner_item, afiliaciones)
-                adapterPersonajes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapterPersonajes = ArrayAdapter(this@ListarAfiliaciones, R.layout.item_spinner, afiliaciones)
+                adapterPersonajes.setDropDownViewResource(R.layout.item_spinner)
                 binding.spLideres.adapter = adapterPersonajes
             }
         }
@@ -155,6 +156,11 @@ class ListarAfiliaciones : AppCompatActivity(), NavigationView.OnNavigationItemS
                 val intent = Intent(this, ListarDominios::class.java)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
+            }
+
+            R.id.salir -> {
+                finishAffinity()
+                exitProcess(0)
             }
         }
         drawer.closeDrawers()

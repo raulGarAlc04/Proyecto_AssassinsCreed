@@ -10,6 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.activity.result.PickVisualMediaRequest
@@ -19,9 +20,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.example.proyecto_assassinscreed.adapter.CarruselAdapter
 import com.example.proyecto_assassinscreed.databinding.ActivityInicioBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlin.system.exitProcess
 
 open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,6 +36,8 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     private lateinit var imagen: ImageButton
     private lateinit var binding: ActivityInicioBinding
+
+    private lateinit var viewPager2: ViewPager2
 
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
@@ -61,8 +67,11 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
         imagen = binding.bFotoPerfil
 
-        val foto = binding.imagenInicio
-        registerForContextMenu(foto)
+        viewPager2 = binding.carruselFotos
+
+        val images = listOf(R.drawable.cr_01, R.drawable.cr_02, R.drawable.cr_03)
+        val adapter = CarruselAdapter(images)
+        viewPager2.adapter = adapter
 
         binding.btnCerrarSesion.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
@@ -133,6 +142,11 @@ open class InicioActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 val intent = Intent(this, ListarDominios::class.java)
                 //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
+            }
+
+            R.id.salir -> {
+                finishAffinity()
+                exitProcess(0)
             }
         }
         drawer.closeDrawers()

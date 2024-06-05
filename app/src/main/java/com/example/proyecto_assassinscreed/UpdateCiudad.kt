@@ -26,10 +26,10 @@ class UpdateCiudad : AppCompatActivity() {
             val nombresCiudades = MiPersonajesApp.database.ciudadesDao().nombresCiudades()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterPersonajes = ArrayAdapter(this@UpdateCiudad, R.layout.simple_spinner_item, nombresPersonajes)
-                val adapterCiudades = ArrayAdapter(this@UpdateCiudad, R.layout.simple_spinner_item, nombresCiudades)
-                adapterPersonajes.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                adapterCiudades.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                val adapterPersonajes = ArrayAdapter(this@UpdateCiudad, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresPersonajes)
+                val adapterCiudades = ArrayAdapter(this@UpdateCiudad, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresCiudades)
+                adapterPersonajes.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
+                adapterCiudades.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
                 binding.spNuevoGobernador.adapter = adapterPersonajes
                 binding.spCiudad.adapter = adapterCiudades
             }
