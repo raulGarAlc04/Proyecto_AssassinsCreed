@@ -54,7 +54,6 @@ class UpdateAfiliacion : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         binding.bSalirSinGuardar.setOnClickListener {
