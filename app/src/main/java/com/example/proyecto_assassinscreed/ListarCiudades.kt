@@ -1,11 +1,13 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -157,8 +159,7 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -198,9 +199,12 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         CoroutineScope(Dispatchers.IO).launch {
             val position = ciudades.indexOf(ciudad)
             MiPersonajesApp.database.ciudadesDao().deleteCiudad(ciudad)
+            MiPersonajesApp.database.ciudadesDao().updateCiudad("Ciudad independiente", ciudad.dominio)
+            MiPersonajesApp.database.dominioDao().deletePorCapital(ciudad.ciudad)
             ciudades.remove(ciudad)
             runOnUiThread {
                 adapter.notifyItemRemoved(position)
+                getCiudades()
             }
         }
     }
@@ -212,5 +216,21 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 adapter.actualizarCiudades(ciudades)
             }
         }
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

@@ -56,7 +56,9 @@
         tools:layout_editor_absoluteY="102dp"
         app:layout_constraintTop_toBottomOf="@id/titulo_annadir"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/anioFallecimiento"
@@ -68,7 +70,9 @@
         android:hint="Año de fallecimiento"
         app:layout_constraintTop_toBottomOf="@id/nombrePersonaje"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/lugarFallecimiento"
@@ -80,7 +84,9 @@
         android:hint="Lugar de fallecimiento"
         app:layout_constraintTop_toBottomOf="@id/anioFallecimiento"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
         <TextView
             android:id="@+id/afiliacionPersonaje"
@@ -117,7 +123,9 @@
         android:layout_margin="20dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spAfiliacion">
+        app:layout_constraintTop_toBottomOf="@id/spAfiliacion"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp">
 
         <RadioButton
             android:id="@+id/radioVillano"

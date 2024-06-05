@@ -1,10 +1,14 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -65,6 +69,19 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         binding.bAnnadir.setOnClickListener {
             if (binding.nombrePersonaje.text.isNotEmpty() && binding.anioFallecimiento.text.isNotEmpty() && binding.lugarFallecimiento.text.isNotEmpty() && (!binding.radioVillano.isChecked || !binding.radioAmigo.isChecked)) {
+                if (binding.nombrePersonaje.text.length > 20) {
+                    Toast.makeText(this, "El nombre del personaje no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.anioFallecimiento.text.length > 20) {
+                    Toast.makeText(this, "El año de fallecimiento no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.lugarFallecimiento.text.length > 20) { // Se asume que la longitud exacta debe ser 6
+                    Toast.makeText(this, "El lugar de fallecimiento debe tener maximo 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 CoroutineScope(Dispatchers.IO).launch {
                     val personaje = MiPersonajesApp.database.personajeDao().personajePorNombre(binding.nombrePersonaje.text.toString())
                     if (personaje.isEmpty()) {
@@ -165,8 +182,7 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -206,5 +222,21 @@ class AnnadirPersonaje : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
         }
     }*/
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
 
 }

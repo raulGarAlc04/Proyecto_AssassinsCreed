@@ -55,7 +55,9 @@
         tools:layout_editor_absoluteY="102dp"
         app:layout_constraintTop_toBottomOf="@id/titulo_annadir_ciudad"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
         <TextView
             android:id="@+id/gobernadorCiudad"
@@ -94,7 +96,9 @@
         android:hint="ISLA"
         app:layout_constraintTop_toBottomOf="@id/spGobernador"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
         <TextView
             android:id="@+id/dominioCiudad"
@@ -133,7 +137,9 @@
         android:hint="Descripcion"
         app:layout_constraintTop_toBottomOf="@id/spDominio"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:fontFamily="@font/cinzel_regular"/>
+        android:fontFamily="@font/cinzel_regular"
+        android:background="@drawable/bordes_cuadro_texto"
+        android:padding="10dp"/>
 
     <Button
         android:id="@+id/bAnnadirCiudad"

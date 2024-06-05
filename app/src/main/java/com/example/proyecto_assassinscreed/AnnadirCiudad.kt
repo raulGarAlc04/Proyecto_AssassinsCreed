@@ -1,5 +1,6 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,19 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         binding.bAnnadirCiudad.setOnClickListener {
             if (binding.nombreCiudad.text.isNotEmpty() && binding.isla.text.isNotEmpty() && binding.descripcionCiudad.text.isNotEmpty()) {
+                if (binding.nombreCiudad.text.length > 20) {
+                    Toast.makeText(this, "El nombre de la ciudad no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.isla.text.length > 20) {
+                    Toast.makeText(this, "La isla no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.descripcionCiudad.text.length > 6) { // Se asume que la longitud exacta debe ser 6
+                    Toast.makeText(this, "La descripcion debe tener maximo 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 CoroutineScope(Dispatchers.IO).launch {
                     val ciudad = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.nombreCiudad.text.toString())
                     if (ciudad.isEmpty()) {
@@ -172,8 +186,7 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -201,5 +214,21 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         binding.nombreCiudad.setText("")
         binding.isla.setText("")
         binding.descripcionCiudad.setText("")
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

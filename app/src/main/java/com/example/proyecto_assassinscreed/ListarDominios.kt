@@ -1,11 +1,13 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.widget.addTextChangedListener
 import androidx.drawerlayout.widget.DrawerLayout
@@ -156,8 +158,7 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -196,10 +197,12 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     fun deleteDominio(dominio: Dominio) {
         CoroutineScope(Dispatchers.IO).launch {
             val position = dominios.indexOf(dominio)
+            MiPersonajesApp.database.ciudadesDao().updateCiudad("Ciudad independiente", dominio.nombreDominio)
             MiPersonajesApp.database.dominioDao().deleteDominio(dominio)
             dominios.remove(dominio)
             runOnUiThread {
                 adapter.notifyItemRemoved(position)
+                getDominios()
             }
         }
     }
@@ -211,5 +214,21 @@ class ListarDominios : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 adapter.actualizarDominio(dominios)
             }
         }
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

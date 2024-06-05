@@ -29,8 +29,8 @@ interface CiudadesDAO {
     @Query("DELETE FROM ciudades WHERE gobernador like :nombreGobernador")
     fun deletePorGobernador(nombreGobernador: String)
 
-    @Query("UPDATE ciudades SET gobernador = :nombreGobernadorAct WHERE ciudad like :ciudad")
-    fun updateCiudad(nombreGobernadorAct: String, ciudad: String)
+    @Query("UPDATE ciudades SET dominio = :nombreNuevoDominio WHERE dominio like :dominio")
+    fun updateCiudad(nombreNuevoDominio: String, dominio: String)
 
     @Update
     fun updateCiudad(elemento: Ciudades)

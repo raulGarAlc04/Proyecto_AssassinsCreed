@@ -1,5 +1,6 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -61,7 +62,25 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
         binding.bAnnadirAfiliacion.setOnClickListener {
-            if (binding.nombreAfiliacion.text.isNotEmpty() && binding.guarida.text.isNotEmpty() && binding.fechaFundacion.text.isNotEmpty() && binding.descripcion.text.isNotEmpty() &&(!binding.radioCriminal.isChecked || !binding.radioPacifica.isChecked)) {
+            if (binding.nombreAfiliacion.text.isNotEmpty() && binding.guarida.text.isNotEmpty() && binding.fechaFundacion.text.isNotEmpty() && binding.descripcion.text.isNotEmpty() && (!binding.radioCriminal.isChecked || !binding.radioPacifica.isChecked)) {
+                // Verificación de la longitud de los campos
+                if (binding.nombreAfiliacion.text.length > 20) {
+                    Toast.makeText(this, "El nombre de la afiliación no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.guarida.text.length > 20) {
+                    Toast.makeText(this, "La guarida no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.fechaFundacion.text.length > 6) { // Se asume que la longitud exacta debe ser 6
+                    Toast.makeText(this, "La fecha debe tener maximo 6 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.descripcion.text.length > 20) {
+                    Toast.makeText(this, "La descripción no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 CoroutineScope(Dispatchers.IO).launch {
                     val afiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorNombre(binding.nombreAfiliacion.text.toString())
                     if (afiliacion.isEmpty()) {
@@ -86,18 +105,18 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
                             clearTextos()
                             Toast.makeText(this@AnnadirAfiliacion, "Afiliacion insertada", Toast.LENGTH_SHORT).show()
                             //actualizarRecyclerView()
-
                         }
                     } else {
                         runOnUiThread {
-                            Toast.makeText(this@AnnadirAfiliacion, "Esta afiliacion ya está en la base de datos",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AnnadirAfiliacion, "Esta afiliacion ya está en la base de datos", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } else {
-                Toast.makeText(this,"Ningun campo puede estar vacío",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Ningun campo puede estar vacío", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -162,8 +181,7 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -194,5 +212,21 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
         binding.descripcion.setText("")
         binding.radioCriminal.isChecked = false
         binding.radioPacifica.isChecked = false
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

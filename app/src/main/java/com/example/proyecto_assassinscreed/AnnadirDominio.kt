@@ -1,5 +1,6 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,15 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         binding.bAnnadirDominio.setOnClickListener {
             if (binding.nombreDominio.text.isNotEmpty() && binding.descripcion.text.isNotEmpty() && (!binding.radioCriminal.isChecked || !binding.radioPacifica.isChecked)) {
+                if (binding.nombreDominio.text.length > 20) {
+                    Toast.makeText(this, "El nombre del dominio no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                if (binding.descripcion.text.length > 20) {
+                    Toast.makeText(this, "La descripcion no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 CoroutineScope(Dispatchers.IO).launch {
                     val dominio = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.nombreDominio.text.toString())
                     if (dominio.isEmpty()) {
@@ -172,8 +182,7 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -202,5 +211,21 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         binding.descripcion.setText("")
         binding.radioCriminal.isChecked = false
         binding.radioPacifica.isChecked = false
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

@@ -26,8 +26,11 @@ interface DominioDAO {
     @Delete
     fun deleteDominio(elemento: Dominio)
 
-    @Query("DELETE FROM dominio WHERE liderDominio like :nombreLiderDominio")
-    fun deletePorLiderDominio(nombreLiderDominio: String)
+    @Query("DELETE FROM dominio WHERE capital like :capital")
+    fun deletePorCapital(capital: String)
+
+    @Query("DELETE FROM dominio WHERE liderDominio like :lider")
+    fun deletePorLiderDominio(lider: String)
 
     @Query("UPDATE dominio SET liderDominio = :nombreLiderDominioAct WHERE nombreDominio like :dominio")
     fun updateDominio(nombreLiderDominioAct: String, dominio: String)

@@ -1,5 +1,6 @@
 package com.example.proyecto_assassinscreed
 
+import android.app.AlertDialog
 import android.app.Person
 import android.content.Intent
 import android.content.res.Configuration
@@ -161,8 +162,7 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
 
             R.id.salir -> {
-                finishAffinity()
-                exitProcess(0)
+                cuadroSalir()
             }
         }
         drawer.closeDrawers()
@@ -203,11 +203,13 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
             val position = personajes.indexOf(personaje)
             MiPersonajesApp.database.personajeDao().deletePersonaje(personaje)
             personajes.remove(personaje)
+            MiPersonajesApp.database.personajeDao().actualizarPersonajes("Personaje Libre", personaje.afiliacion)
             MiPersonajesApp.database.afiliacionesDao().deletePorLider(personaje.nombrePersonaje)
             MiPersonajesApp.database.ciudadesDao().deletePorGobernador(personaje.nombrePersonaje)
             MiPersonajesApp.database.dominioDao().deletePorLiderDominio(personaje.nombrePersonaje)
             runOnUiThread {
                 adapter.notifyItemRemoved(position)
+                getPersonajes()
             }
         }
     }
@@ -219,5 +221,21 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 adapter.actualizarPersonajes(personajes)
             }
         }
+    }
+
+    fun cuadroSalir() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("¿Desea salir? Los cambios no guardados se perderán")
+            .setPositiveButton("Salir") { dialog, id ->
+                finishAffinity()
+                exitProcess(0)
+            }
+            .setNegativeButton("Cancelar") { dialog, id ->
+                Toast.makeText(this, "Acción cancelada", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

@@ -22,22 +22,22 @@ class UpdateCiudad : AppCompatActivity() {
         binding = ActivityUpdateCiudadBinding.inflate(layoutInflater)
         setContentView(binding.root)
         CoroutineScope(Dispatchers.IO).launch {
-            val nombresPersonajes = MiPersonajesApp.database.personajeDao().nombresPersonajes()
+            val nombresDominios = MiPersonajesApp.database.dominioDao().nombresDiminios()
             val nombresCiudades = MiPersonajesApp.database.ciudadesDao().nombresCiudades()
             withContext(Dispatchers.Main) {
                 // Crear el adaptador y asignarlo al Spinner
-                val adapterPersonajes = ArrayAdapter(this@UpdateCiudad, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresPersonajes)
+                val adapterDominios = ArrayAdapter(this@UpdateCiudad, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresDominios)
                 val adapterCiudades = ArrayAdapter(this@UpdateCiudad, com.example.proyecto_assassinscreed.R.layout.item_spinner, nombresCiudades)
-                adapterPersonajes.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
+                adapterDominios.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
                 adapterCiudades.setDropDownViewResource(com.example.proyecto_assassinscreed.R.layout.item_spinner)
-                binding.spNuevoGobernador.adapter = adapterPersonajes
+                binding.spNuevoDominio.adapter = adapterDominios
                 binding.spCiudad.adapter = adapterCiudades
             }
         }
 
         binding.bActualizarCiudad.setOnClickListener {
-            if (binding.spCiudad.isNotEmpty() && binding.spNuevoGobernador.isNotEmpty()) {
-                val nuevoGobernador = binding.spNuevoGobernador.selectedItem.toString()
+            if (binding.spCiudad.isNotEmpty() && binding.spNuevoDominio.isNotEmpty()) {
+                val nuevoGobernador = binding.spNuevoDominio.selectedItem.toString()
                 updateCiudad(nuevoGobernador)
 
                 val intent = Intent(this, ListarCiudades::class.java)
@@ -57,13 +57,13 @@ class UpdateCiudad : AppCompatActivity() {
 
     }
 
-    fun updateCiudad(nuevoGobernador: String) {
+    fun updateCiudad(nuevoDominio: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val ciudades = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.spCiudad.selectedItem.toString())
 
             if (ciudades.isNotEmpty()) {
                 val ciudad = ciudades[0]
-                ciudad.gobernador = nuevoGobernador
+                ciudad.dominio = nuevoDominio
                 MiPersonajesApp.database.ciudadesDao().updateCiudad(ciudad)
 
                 runOnUiThread {
