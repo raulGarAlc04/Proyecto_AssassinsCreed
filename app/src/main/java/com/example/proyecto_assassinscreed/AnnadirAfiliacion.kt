@@ -90,22 +90,14 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
                         } else {
                             "Sin lider"
                         }
-                        MiPersonajesApp.database.afiliacionesDao().addAfiliacion(
-                            Afiliaciones(
-                                nombreAfiliacion = binding.nombreAfiliacion.text.toString(),
-                                lider = lider,
-                                guarida = binding.guarida.text.toString(),
-                                fechaFundacion = binding.fechaFundacion.text.toString(),
-                                descripcion = binding.descripcion.text.toString(),
-                                organizacionCriminal = binding.radioCriminal.isChecked
-                            )
-                        )
 
                         runOnUiThread {
-                            clearTextos()
-                            Toast.makeText(this@AnnadirAfiliacion, "Afiliacion insertada", Toast.LENGTH_SHORT).show()
-                            //actualizarRecyclerView()
+                            mostrarDialogoConfirmacion(lider) {
+                                // Acción a tomar cuando el usuario confirma
+                                actualizarAfiliacionConLider(lider)
+                            }
                         }
+
                     } else {
                         runOnUiThread {
                             Toast.makeText(this@AnnadirAfiliacion, "Esta afiliacion ya está en la base de datos", Toast.LENGTH_SHORT).show()
@@ -116,6 +108,7 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Toast.makeText(this, "Ningun campo puede estar vacío", Toast.LENGTH_SHORT).show()
             }
         }
+
 
     }
 
@@ -229,4 +222,57 @@ class AnnadirAfiliacion : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val dialog = builder.create()
         dialog.show()
     }
+
+    private fun mostrarDialogoConfirmacion(lider: String, onConfirm: () -> Unit) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmación")
+        builder.setMessage("¿Desea cambiar al personaje $lider a la nueva afiliación?")
+
+        builder.setPositiveButton("Sí") { dialog, which ->
+            onConfirm()
+        }
+
+        builder.setNegativeButton("No") { dialog, which ->
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
+    private fun actualizarAfiliacionConLider(lider: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            // Obtener la afiliación anterior del líder
+            val antiguaAfiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorLider(lider)
+
+            // Actualizar la afiliación del líder en personajes
+            MiPersonajesApp.database.personajeDao().actualizarAfiliacionPersonaje(binding.nombreAfiliacion.text.toString(), lider)
+
+            // Actualizar la antigua afiliación a "Sin lider" si es que el líder actual es el líder de esa afiliación
+            if (antiguaAfiliacion != null && antiguaAfiliacion.lider == lider) {
+                MiPersonajesApp.database.afiliacionesDao().actualizarLiderDeAfiliacion(antiguaAfiliacion.nombreAfiliacion, "Sin lider")
+            }
+
+            // Agregar la nueva afiliación
+            MiPersonajesApp.database.afiliacionesDao().addAfiliacion(
+                Afiliaciones(
+                    nombreAfiliacion = binding.nombreAfiliacion.text.toString(),
+                    lider = lider,
+                    guarida = binding.guarida.text.toString(),
+                    fechaFundacion = binding.fechaFundacion.text.toString(),
+                    descripcion = binding.descripcion.text.toString(),
+                    organizacionCriminal = binding.radioCriminal.isChecked
+                )
+            )
+
+            runOnUiThread {
+                clearTextos()
+                Toast.makeText(this@AnnadirAfiliacion, "Afiliacion insertada", Toast.LENGTH_SHORT).show()
+                //actualizarRecyclerView()
+            }
+        }
+    }
+
+
+
+
 }

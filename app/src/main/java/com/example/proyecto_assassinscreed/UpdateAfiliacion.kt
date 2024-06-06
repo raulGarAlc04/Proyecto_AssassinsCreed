@@ -68,10 +68,17 @@ class UpdateAfiliacion : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val personajes = MiPersonajesApp.database.personajeDao().personajePorNombre(binding.nombrePersonajeActualizar.selectedItem.toString())
 
+
             if (personajes.isNotEmpty()) {
                 val personaje = personajes[0]
+                val antiguaAfiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorLider(personaje.nombrePersonaje)
+
                 personaje.afiliacion = nuevaAfiliacion
                 MiPersonajesApp.database.personajeDao().updatePersonaje(personaje)
+
+                if (antiguaAfiliacion != null && antiguaAfiliacion.lider == personaje.nombrePersonaje) {
+                    MiPersonajesApp.database.afiliacionesDao().actualizarLiderDeAfiliacion(antiguaAfiliacion.nombreAfiliacion, "Sin lider")
+                }
 
                 runOnUiThread {
                     //clearTextos()

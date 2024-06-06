@@ -62,8 +62,15 @@ class UpdateLider : AppCompatActivity() {
 
             if (afiliaciones.isNotEmpty()) {
                 val afiliacion = afiliaciones[0]
+                val antiguaAfiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorLider(binding.spNuevoLider.selectedItem.toString())
                 afiliacion.lider = nuevaAfiliacion
                 MiPersonajesApp.database.afiliacionesDao().updateAfiliacion(afiliacion)
+
+                if (antiguaAfiliacion != null && antiguaAfiliacion.lider == binding.spNuevoLider.selectedItem.toString()) {
+                    MiPersonajesApp.database.afiliacionesDao().actualizarLiderDeAfiliacion(antiguaAfiliacion.nombreAfiliacion, "Sin lider")
+                }
+
+                MiPersonajesApp.database.personajeDao().actualizarAfiliacionPersonaje(binding.spAfiliacion.selectedItem.toString(), binding.spNuevoLider.selectedItem.toString())
 
                 runOnUiThread {
                     //clearTextos()
