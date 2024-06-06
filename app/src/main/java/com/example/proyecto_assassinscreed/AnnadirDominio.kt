@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.isNotEmpty
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.proyecto_assassinscreed.database.Afiliaciones
 import com.example.proyecto_assassinscreed.database.Ciudades
 import com.example.proyecto_assassinscreed.database.Dominio
 import com.example.proyecto_assassinscreed.database.MiPersonajesApp
@@ -76,7 +77,7 @@ class AnnadirDominio : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    val dominio = MiPersonajesApp.database.ciudadesDao().ciudadPorNombre(binding.nombreDominio.text.toString())
+                    val dominio = MiPersonajesApp.database.dominioDao().dominioPorNombre(binding.nombreDominio.text.toString())
                     if (dominio.isEmpty()) {
                         var liderDominio: String = ""
                         var capital: String = ""
