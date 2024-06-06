@@ -203,7 +203,11 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
             val position = personajes.indexOf(personaje)
             MiPersonajesApp.database.personajeDao().deletePersonaje(personaje)
             personajes.remove(personaje)
-            MiPersonajesApp.database.personajeDao().actualizarPersonajes("Personaje Libre", personaje.afiliacion)
+
+            val esLider = MiPersonajesApp.database.personajeDao().esLider(personaje.nombrePersonaje)
+            if (esLider) {
+                MiPersonajesApp.database.personajeDao().actualizarPersonajes("Personaje Libre", personaje.afiliacion)
+            }
             MiPersonajesApp.database.afiliacionesDao().deletePorLider(personaje.nombrePersonaje)
             MiPersonajesApp.database.ciudadesDao().deletePorGobernador(personaje.nombrePersonaje)
             MiPersonajesApp.database.dominioDao().deletePorLiderDominio(personaje.nombrePersonaje)

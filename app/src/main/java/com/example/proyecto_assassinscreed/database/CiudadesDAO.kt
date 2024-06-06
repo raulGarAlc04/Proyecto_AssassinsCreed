@@ -20,6 +20,9 @@ interface CiudadesDAO {
     @Query("SELECT * FROM ciudades WHERE dominio like :nombreDominio")
     fun filtrarPorDominio(nombreDominio: String): MutableList<Ciudades>
 
+    @Query("SELECT COUNT(*) > 0 FROM dominio WHERE capital = :capital")
+    fun esCapital(capital: String): Boolean
+
     @Insert
     fun addCiudad(elemento: Ciudades)
 

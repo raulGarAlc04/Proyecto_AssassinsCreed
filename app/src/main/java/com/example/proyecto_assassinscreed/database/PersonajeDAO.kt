@@ -24,6 +24,9 @@ interface PersonajeDAO {
     @Query("SELECT afiliacion FROM personajes WHERE nombrePersonaje like :nombrePersonaje")
     fun afiliacionPersonaje(nombrePersonaje: String): String
 
+    @Query("SELECT COUNT(*) > 0 FROM afiliaciones WHERE lider = :nombrePersonaje")
+    fun esLider(nombrePersonaje: String): Boolean
+
     // UPDATES
     @Query("UPDATE personajes SET afiliacion = :nuevaAfiliacion WHERE afiliacion like :nombreAfiliacion")
     fun actualizarPersonajes(nuevaAfiliacion: String, nombreAfiliacion: String)

@@ -199,7 +199,10 @@ class ListarCiudades : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         CoroutineScope(Dispatchers.IO).launch {
             val position = ciudades.indexOf(ciudad)
             MiPersonajesApp.database.ciudadesDao().deleteCiudad(ciudad)
-            MiPersonajesApp.database.ciudadesDao().updateCiudad("Ciudad independiente", ciudad.dominio)
+            val esCapital = MiPersonajesApp.database.ciudadesDao().esCapital(ciudad.ciudad)
+            if (esCapital) {
+                MiPersonajesApp.database.ciudadesDao().updateCiudad("Ciudad independiente", ciudad.dominio)
+            }
             MiPersonajesApp.database.dominioDao().deletePorCapital(ciudad.ciudad)
             ciudades.remove(ciudad)
             runOnUiThread {
