@@ -104,7 +104,7 @@ class ListarPersonajes : AppCompatActivity(), NavigationView.OnNavigationItemSel
         when (item.itemId) {
             R.id.inicio -> {
                 val intent = Intent(this, InicioActivity::class.java)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 startActivity(intent)
 
             }

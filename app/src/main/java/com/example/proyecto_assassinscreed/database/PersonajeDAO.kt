@@ -8,6 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface PersonajeDAO {
+    // CONSULTAS
     @Query("SELECT * FROM personajes")
     fun getAllPersonajes(): MutableList<Personajes>
 
@@ -23,18 +24,23 @@ interface PersonajeDAO {
     @Query("SELECT afiliacion FROM personajes WHERE nombrePersonaje like :nombrePersonaje")
     fun afiliacionPersonaje(nombrePersonaje: String): String
 
+    // UPDATES
     @Query("UPDATE personajes SET afiliacion = :nuevaAfiliacion WHERE afiliacion like :nombreAfiliacion")
     fun actualizarPersonajes(nuevaAfiliacion: String, nombreAfiliacion: String)
 
     @Query("UPDATE personajes SET afiliacion = :nuevaAfiliacion WHERE nombrePersonaje like :nombrePersonaje")
     fun actualizarAfiliacionPersonaje(nuevaAfiliacion: String, nombrePersonaje: String)
 
+    @Update
+    fun updatePersonaje(elemento: Personajes)
+
+    // INSERT
     @Insert
     fun addPersonaje(elemento: Personajes)
 
+    // DELETE
     @Delete
     fun deletePersonaje(elemento: Personajes)
 
-    @Update
-    fun updatePersonaje(elemento: Personajes)
+
 }
