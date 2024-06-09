@@ -56,14 +56,14 @@ class UpdateLider : AppCompatActivity() {
 
     }
 
-    fun updateAfiliacion(nuevaAfiliacion: String) {
+    fun updateAfiliacion(nuevoLider: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val afiliaciones = MiPersonajesApp.database.afiliacionesDao().afiliacionPorNombre(binding.spAfiliacion.selectedItem.toString())
 
             if (afiliaciones.isNotEmpty()) {
                 val afiliacion = afiliaciones[0]
                 val antiguaAfiliacion = MiPersonajesApp.database.afiliacionesDao().afiliacionPorLider(binding.spNuevoLider.selectedItem.toString())
-                afiliacion.lider = nuevaAfiliacion
+                afiliacion.lider = nuevoLider
                 MiPersonajesApp.database.afiliacionesDao().updateAfiliacion(afiliacion)
 
                 if (antiguaAfiliacion != null && antiguaAfiliacion.lider == binding.spNuevoLider.selectedItem.toString()) {
