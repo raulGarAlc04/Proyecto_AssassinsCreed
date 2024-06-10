@@ -74,7 +74,7 @@ class AnnadirCiudad : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     Toast.makeText(this, "La isla no puede tener más de 20 caracteres", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                if (binding.descripcionCiudad.text.length > 6) { // Se asume que la longitud exacta debe ser 6
+                if (binding.descripcionCiudad.text.length > 20) { // Se asume que la longitud exacta debe ser 6
                     Toast.makeText(this, "La descripcion debe tener maximo 20 caracteres", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
